@@ -466,7 +466,19 @@ ul#nav li.current a { color: #F06000; }
 
 .popup-modal .description-box code {
    font: 14px/16px 'opensans-regular', sans-serif;
-   color: #0000AF;
+   color: #5E5353;
+   margin-bottom: 12px;
+}
+
+.popup-modal .description-box var {
+   font: 14px/16px 'opensans-regular', sans-serif;
+   color: #780101;
+   margin-bottom: 12px;
+}
+
+.popup-modal .description-box em {
+   font: 14px/16px 'opensans-bold', sans-serif;
+   color: #BD5F00;
    margin-bottom: 12px;
 }
 
