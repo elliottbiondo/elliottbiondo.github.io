@@ -169,6 +169,8 @@ problems.
                   <div class="item-wrap">
                      <a href="#modal-svd" title="">
                         <img alt="" src="https://drive.google.com/uc?id=10nIdCdWii74NjW7o1lp7UaC3OFbdDDhQ">
+                          <div class="overlay">
+       			              </div>
                            <div class="portfolio-item-meta">
           					      <h6>SVD of Monte Carlo variance reduction parameters</h6>
                               <h7>Analysis</h7>
@@ -184,10 +186,12 @@ problems.
                <div class="item-wrap">
                   <a href="#modal-gtcadis" title="">
                      <img alt="" src="https://drive.google.com/uc?id=1es2HuTMVLPSSKd2kBxNnUSoqcG-nn1Ht">
+                      <div class="overlay">
+       			      </div>
                         <div class="portfolio-item-meta">
        					      <h6>Optimizing gamma dose rate calculations for nuclear fusion sheilding</h6>
                            <h7>Analysis, dissertation</h7>
-       					   </div>
+       					</div>
                      <div class="link-icon"><i class="icon-plus"></i></div>
                   </a>
                </div>
@@ -199,6 +203,8 @@ problems.
                   <div class="item-wrap">
                      <a href="#modal-turbine" title="">
                         <img alt="" src="https://drive.google.com/uc?id=1oWlX4_7nT3ygydk0Ouv18m_VqfieQXav">
+                          <div class="overlay">
+       			              </div>
                            <div class="portfolio-item-meta">
           					      <h6>Tetrahedral mesh probability density functions</h6>
                               <h7>C++, Python</h7>
@@ -214,6 +220,8 @@ problems.
                <div class="item-wrap">
                   <a href="#modal-cuda" title="">
                      <img alt="" src="https://drive.google.com/uc?id=1sgl8ZTIo38H89nSrwD6_MAaV8V6I7JJ-">
+                          <div class="overlay">
+       			              </div>
                         <div class="portfolio-item-meta">
        					      <h6>GPU-parallelized matrix LU decomposition with CUDA</h6>
                            <h7>C++, CUDA, coursework</h7>
@@ -229,6 +237,8 @@ problems.
                <div class="item-wrap">
                   <a href="#modal-fam" title="">
                      <img alt="" src="https://drive.google.com/uc?id=1OS9ovne50cJaL61I_yBEXClbiUzXMkMz">
+                          <div class="overlay">
+       			              </div>
                         <div class="portfolio-item-meta">
        					      <h6>Herald: a Python tool for automatically generating family trees</h6>
                            <h7>Python, side project</h7>
@@ -367,21 +377,64 @@ Physical space instead of energy space
                     <a href="http://pyne.io/theorymanual/source_sampling.html">Theory, sample calcs to match unit tests</a>
                     <br>
                     <a href="http://pyne.io/usersguide/source_sampling.html">User's guide</a>
-                    <br>
+                    <br><br>
+
+Nuclear systems analysis often involves using the Monte Carlo approach to
+simulate the paths particles (i.e. neutrons and high-energy photons) take after
+they are emmitted from a source. This source may be a reactor core, particle
+accelerator, or a radioactive seed used in radiation onocology. When using the
+Monte Carlo approach, the source must be represented as a probability density
+function that typical varies a function of position the emitted particle energy.
+With industry standard Monte Carlo radiation transport codes such as
+<a href="https://mcnp.lanl.gov/mcnp5.shtml">MCNP5</a>, users must specify these
+PDFs through the combination of rudimentary 1D PDFs such has histogram, linear,
+and pointwise distributions. There are many cases where this method is either
+impractical or intractible, such as cases where particles are emmitted from
+nuclear fusion plasmas or irradiated structural materials.
+
+<br><br>
+
+I have added code to the <a href="https://github.com/pyne/pyne">PyNE</a>
+toolkit for the creation of energy-dependent Cartesian- or tetrahedral
+mesh-based PDFs. These PDF can be sampling using unbiased and biased sampling
+techniques that allow for the use of Monte Carlo variance reduction. Sampling
+is done using the <a
+href="http://ieeexplore.ieee.org/document/4245054/?reload=true">Alias
+method</a>, which allows for O(1) scale in respect to the number of discrete
+bins in the PDF. My code is written in C++ and also has Python and Fortran
+interfaces and can be compiled directly into exiting Monte Carlo codes. More
+information can be found in the links at the top of this page.
+
+<br><br>
+
+Here's a quick dmonstration of how this code can be used to created extreme
+complex particle sources.  Consider this CAD model of turbine rotor I found on
+<a href="https://grabcad.com/">GrabCAD</a>. 
+
+<img  src="https://drive.google.com/uc?id=1d0WAQUJQP_3BkGWZHfF6iThxfzYd6MyP" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
+
+I created a conformal tetrahedral mesh of this model using <a
+href="https://cubit.sandia.gov/">CUBIT</a>. I then iterated through tetrahedral
+elements of the mesh a assiged a source stregth to each element based on the
+$x$, $y$, $z$ coordinates of the center of the element using this equation:
 
 
-                    <br>
-                    Proin gravida nibh vel velit auctor aliquet. 
+$$q(x, y, z) = \frac{sin^2(x) + sin^2(y) + sin^2(z-100)}{1200}.$$
 
-                    <figure>
-                    <img  src="https://drive.google.com/uc?id=1d0WAQUJQP_3BkGWZHfF6iThxfzYd6MyP" alt="" height="40%" width="40%" class="center"/>
-                    <figcaption> asdfasdfa
-                    </figcaption>
-                    </figure>
-                    asdfasdfaaaaa
+This equation does not have any physcially significance, but it serves as a
+good example because it would not be possible to represent using
+industry-standard Monte Carlo codes. The resulting particle source is shown below.
 
-                    <img  src="https://drive.google.com/uc?id=1OnJxs8PUgx5vi6pzDqbXruKd45Ds5k0-" alt="" height="52%" width="52%" class="center"/>
-                    <img  src="https://drive.google.com/uc?id=1JJ6Gzu6YhwyqWUaDwKPjd7bPti00G9DK" alt="" height="60%" width="60%" class="center"/>
+<img  src="https://drive.google.com/uc?id=1OnJxs8PUgx5vi6pzDqbXruKd45Ds5k0-" alt="" height="38%" width="38%" class="center" style="padding:20px;"/>
+
+I compile my C++ routine directly into MCNP via the Fortran interface I
+created. I was then able to used the PDF shown above as particle source for a
+photon transport simiulation. Below is an image showning the photon flux distribution.
+
+<img  src="https://drive.google.com/uc?id=1JJ6Gzu6YhwyqWUaDwKPjd7bPti00G9DK" alt="" height="45%" width="45%" class="center" style="padding:20px;"/>
+
+Although this example was just for fun, I have used this code as a component of a software system used for estimating biological dose rates from nuclear fusion reactors <a href="https://doi.org/10.1080/00295639.2016.1275848">[journal article, pay walled]</a>. 
+
 
                   <p/>
 		      </div>
@@ -424,8 +477,10 @@ accrued information on hundreds of direct ancestors going back as far as
 William the Conquerer (c. 1028 - 1087). There are tons of geneology tools out
 there, but none of them were entirely satisfactory to me. In the throes of
 writting my disseration I needed a fun coding project, so I threw this together
-in a few Sunday mornings.  This is an ongoing project, so right now only direct
-decent is supported (i.e. parent, grand-parent, ..., [$N\times$great]-grand-parent).
+in a few Sunday mornings. This project, which I call Herald, is writting in Python. Herald reads
+version-controllable test-based input files and creates PDF output files via SVG.
+This is an ongoing project, so right now only direct decent is supported (i.e.
+parent, grand-parent, ..., [$N\times$great]-grand-parent).
 
 I came up with a very simple recursive algorithm for genearting the tree (which is appropriatedly a tree in the graph-theory sense).
 
