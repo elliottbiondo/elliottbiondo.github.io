@@ -459,11 +459,20 @@ immediatly surrounding the area of interest.
 
 <img  src="https://drive.google.com/uc?id=1dLbb3tez6mF3dFB5Nq7EV-GK53K_5wl-" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
 
-In order to quantify 
+In order to quantify how much faster the simulation converges with GT-CADIS, the Monte Carlo figure of merit was used, as defined by 
 
+$$ {\text{figure of merit}} = \frac{1}{R^2t_{\text{proc}}} $$,
 
+where R is the relative error of the photon flux in the region of interest (e.g. the orange sphere in the geometry image) and ${\text{proc}}$ is the neutron transport processor time. The figure of merit converges to a constant value during a simulation, as seen in the plot below.
 
 <img  src="https://drive.google.com/uc?id=1zF4T2jgIt5XQW5OkB7s34QIWQ8H274La" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+
+The ratio of figure of merits is the speedup. GT-CADIS was found to provide of
+speedups of $200 \pm 100$ relative to FW-CADIS and $9 \pm 5 \times 10^5$
+relative to simulation without variance reduction. In other words, GT-CADIS
+drastically reduces the required computational resources necessary for
+calculating these photon dose rates.
+
                   <p/>
 		      </div>
             <div class="link-box">
