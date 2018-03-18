@@ -61,8 +61,12 @@
       <div class="row banner">
          <div class="banner-text">
             <h1 class="responsive-headline">Elliott Biondo</h1>
-            <h3>I'm a  <span>computational nuclear engineer</span>,  <span>researcher</span> 
-                and <span>software developer</span>. I love applying 
+            <h3>
+            <span>
+            I'm a computational nuclear engineer, researcher, and software developer.
+            <br>
+            I love working on challenging problems for the common good.
+            </span>
             </h3>
             <hr />
             <ul class="social">
@@ -87,51 +91,67 @@
          <div class="three columns">
             <!--<img class="profile-pic"  src="https://drive.google.com/uc?id=1nSTsMiR5cf_xt0xqanmjgpO6ttvgaFRQ" alt="" /> -->
             <img  src="https://drive.google.com/uc?id=1nSTsMiR5cf_xt0xqanmjgpO6ttvgaFRQ" alt="" />
+
+				<div class="minibars">
+				   <ul class="skills">
+					    <li><span class="minibar-expand python"></span><em>Python</em></li>
+                        <li><span class="minibar-expand cpp"></span><em>C++</em></li>
+                        <li><span class="minibar-expand cuda"></span><em>CUDA</em></li>
+                        <li><span class="minibar-expand matlab"></span><em>MATLAB</em></li>
+                        <li><span class="minibar-expand git"></span><em>git</em></li>
+                        <li><span class="minibar-expand latex"></span><em>LaTeX</em></li>
+					</ul>
+				</div> <!-- end skill-bars -->
          </div>
+
+
          <div class="nine columns main-col">
             <h2>About Me</h2>
             <p3>
         
-I am currently a postdoctoral researcher at Oak Ridge National Laboratory (ORNL) in Oak Ridge, Tennessee
-I work in the <a href="https://www.ornl.gov/division/rnsd/radiation-transport">Radiation Transport Group</a>,
+I am currently a postdoctoral researcher at Oak Ridge National Laboratory
+(ORNL) in Oak Ridge, Tennessee. I work in the <a
+href="https://www.ornl.gov/division/rnsd/radiation-transport">Radiation
+Transport Group</a>, as a developer of the <a
+href="https://doi.org/10.1016/j.jcp.2015.12.037">Shift</a> Monte Carlo
+radiation transport code. I develop, implement, and analyze new methods for
+improving the performance and accuracy of nuclear fission reactor simulations
+on leadership-class supercomputers.
 
 <br>
 
-I grew up in the D.C. metro area, before shipping off to the University of
-Minnesota where I double majored in chemical engineering and chemistry. As an
-undergraduate I gained experience in both industry and academia,
-working as a process engineering intern at <a
-href="http://www.polarfab.com/">Polar Semiconductor Inc.</a> and as a synthetic
-organic chemist in the <a href="http://noland.chem.umn.edu/">Noland Research
-Group</a>. During my junior year I was first exposed to scientific computing in
-a numerical methods for chemical engineering course and shortly after I became
-interested in nuclear energy as a way to mitigate antropogenic climate change.
+I grew up in the D.C. metro area, before attending the University of
+Minnesota where I double majored in chemical engineering and chemistry.
+I gained experience in both industry and academia, working as a
+process engineering intern at <a href="http://www.polarfab.com/">Polar
+Semiconductor Inc.</a> and as a synthetic organic chemist in the <a
+href="http://noland.chem.umn.edu/">Noland Research Group</a>.  During my junior
+year I was first exposed to scientific computing in a numerical methods course
+and also became interested in nuclear energy as a way to mitigate
+antropogenic climate change.
 
 <br>
 
-These interested lead me to join the <a
+These interests lead me to join the <a
 href="http://cnerg.github.io/">Computational Nuclear Engineering Research
 Group</a> at the University of Wisconsin, where I earned my Ph.D. in nuclear
 engineering. As a graduate student, I had coursework in advanced mathematics,
-numerical methods, algorithms, and high-performance computing. 
+numerical methods, algorithms, and high-performance computing.  I gained
+nuclear engineering analysis experience performing calculations in support of
+the design of the <a href="https://shinemed.com/">SHINE Medical
+Technologies</a> medical isotope facility. 
+My software development skills matured as a leading contributor to the
+<a href="https://github.com/pyne/pyne">Python for Nuclear Engineering Toolkit</a> 
+and as an intern at ORNL working on the 
+<a href="https://info.ornl.gov/sites/publications/files/Pub46035.pdf">ADVANTG</a> code.
 
-I gained real-world nuclear engineering analysis experience
-<a href="https://shinemed.com/">SHINE Medical Technologies</a>
-
-My dissertation
-research focused on optimizing Monte Carlo simulations for nuclear shielding
-problems, specifically biological dose rate calculation for nuclear fusion
-problems.
-
-
-
-
-
-<a href="https://www.iter.org/">ITER</a>
+My dissertation research focused on
+optimizing Monte Carlo simulations for biological dose rate calculations for nuclear fusion reactors. This involved developing a series of approximations
 
             </p3>
             <div class="row">
                <div class="columns contact-details">
+                  <br>
                   <h2>Contact Details</h2>
                      <span>elliott.biondo@gmail.com</span><br>
 				     <span>(240) 281-4759</span>
@@ -141,8 +161,12 @@ problems.
                            </span><br>
 			      </p>
                </div>
+
+
+
                <div class="columns download">
                   <p>
+                  <br>
                      <a href="https://drive.google.com/uc?id=17u5lEam61sgYPNa-RwTe-s0dFQgwkU9-" class="button"><i class="fa fa-download"></i>Download Resume</a>
                      <a href="https://drive.google.com/uc?id=1EJB2SDugvTC3RLhyKhkCjpbl0JYODPKh" class="button"><i class="fa fa-download"></i>Download CV</a>
                   </p>
@@ -324,6 +348,7 @@ Physical space instead of energy space
 
                      Holtec HI-STORM MPC-32 fuel cask
 
+$$ {\text{figure of merit}} = \frac{1}{R^2t_{\text{proc}}} $$,
 
 
                   <p/>
@@ -567,10 +592,18 @@ Although this example was just for fun, I have used this code as a component of 
 			      <p>
                     <a href="https://github.com/elliottbiondo/ME759_final_project">C++ source</a> 
                     <br>
-                    <a href="https://drive.google.com/open?id=1Wa8V2XscpTD_Jcb6dexIUmlDXp5WQdC6">Report</a> 
-                    <br>
+                    <a href="https://drive.google.com/uc?id=109i9abkckd_H7_TjX6rYnNYml797JjjT">Report</a> 
+                    <br><br>
 
-                    <img  src="https://drive.google.com/open?id=1SiEYCfoq785w2-iht2jKSrmB_nLVXTtg" alt="" height="50%" width="50%" class="center"/>
+In grad school, one of my favorite courses was <a
+href="http://sbel.wisc.edu/Courses/ME964/">ME759: High-Performance Computing
+for Applications in Engineering</a>. The primary focus of this course was GPU
+computing with CUDA, though we spent some time with MPI and OpenMP as well.
+For my final project, I used LU
+
+
+
+                    <img  src="https://drive.google.com/uc?id=1SiEYCfoq785w2-iht2jKSrmB_nLVXTtg" alt="" height="50%" width="50%" class="center"/>
 
                   <p/>
 		      </div>
@@ -674,7 +707,6 @@ representation. A portion of my family tree is shown below.
                   <p class="info">Ph.D. in Nuclear Engineering and Engineering Physics <span>&bull;</span> <em class="date">August 2016</em></p>
                   <p>
                         
-
                     <a href="https://drive.google.com/uc?id=1P1zolvdd0gvulS6iJ3rjXvLGiOjNbl1M">Python source</a> 
                   </p>
                </div>
@@ -685,7 +717,12 @@ representation. A portion of my family tree is shown below.
                   <h3>University of Minnesota</h3>
                   <p class="info">B.ChE in Chemical Engineering, B.S. in Chemistry<span>&bull;</span> <em class="date">May 2011</em></p>
                   <p>
-                  Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
+
+
+                    Co-President of the UMN American Institute of Chemical Engineers, leader of the UMN 
+                    <a href="https://www.youtube.com/watch?v=turn8qJi4Uw">Chem-E-Car Team</a>, and
+                    student member of the College of Engineering Curriculum Council.
+
                   </p>
                </div>
             </div> <!-- item end -->
