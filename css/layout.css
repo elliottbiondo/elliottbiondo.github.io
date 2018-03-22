@@ -510,7 +510,7 @@ font-weight: normal;
 }
 
 .popup-modal .description-box code {
-   font: 14px/18px 'monaco';
+   font: 14px/16px 'monaco';
    color: #5E5353;
    margin-bottom: 12px;
 }
@@ -527,15 +527,9 @@ font-weight: normal;
    margin-bottom: 12px;
 }
 
-.popup-modal .description-box span {
-   font: 11px/16px 'monaco';
+.popup-modal .description-box number {
+   font: 10px/16px 'monaco';
    color: #696969;
-   margin-bottom: 12px;
-}
-
-.popup-modal .description-box li {
-	font: 14px/24px 'opensans-regular', sans-serif;
-   color: #000000;
    margin-bottom: 12px;
 }
 
@@ -969,3 +963,4 @@ footer .social-links li:first-child { margin-left: 0; }
    font: 12px/12px 'opensans', sans-serif;
    color: #000;
 }
+

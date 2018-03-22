@@ -666,19 +666,19 @@ The algorithm I chose for performing this decomposition is shown below.
 </p>
 <div>
 <pre><code>
-<span>1</span>    <em>for</em> i = 0 to n−2
-<span>2</span>    
-<span>3</span>        <em>for</em> j = i+1 to n−1
-<span>4</span>            A[j, i] = A[j, i]/A[i,i]
-<span>5</span>        <em>end for</em>
-<span>6</span>    
-<span>7</span>        <em>for</em> j = i+1 to n−1
-<span>8</span>            <em>for</em> k = i+1 to n−1
-<span>9</span>                A[j, k] = A[j , k] − A[j, i]∗A[i, k]
-<span>10</span>           <em>end for</em>
-<span>11</span>       <em>end for</em>
-<span>12</span>   
-<span>13</span>   <em>end for</em>
+<number>1</number>    <em>for</em> i = 0 to n−2
+<number>2</number>    
+<number>3</number>        <em>for</em> j = i+1 to n−1
+<number>4</number>            A[j, i] = A[j, i]/A[i,i]
+<number>5</number>        <em>end for</em>
+<number>6</number>    
+<number>7</number>        <em>for</em> j = i+1 to n−1
+<number>8</number>            <em>for</em> k = i+1 to n−1
+<number>9</number>                A[j, k] = A[j , k] − A[j, i]∗A[i, k]
+<number>10</number>           <em>end for</em>
+<number>11</number>       <em>end for</em>
+<number>12</number>   
+<number>13</number>   <em>end for</em>
 </code></pre>
 </div>
 <p>
@@ -754,18 +754,18 @@ I came up with a very simple recursive algorithm for generating the tree (which 
 
 </p>
 <pre><code>
-<span>1</span>     <em>function</em> <var>assign_index</var>(Person person, string index)
-<span>2</span>         person.set_index(index)
-<span>3</span>     
-<span>4</span>             <em>if</em> person.mother():
-<span>5</span>                 <var>assign_index</var>(person.mother(), person.index() +'1')
-<span>6</span>             <em>end if</em>
-<span>7</span>     
-<span>8</span>             <em>if</em> person.father():
-<span>9</span>                 <var>assign</var>(person.father, person.index() + '0')
-<span>10</span>            <em>end if</em>
-<span>11</span>    
-<span>12</span>    <em>end function</em>
+<number>1</number>     <em>function</em> <var>assign_index</var>(Person person, string index)
+<number>2</number>         person.set_index(index)
+<number>3</number>     
+<number>4</number>             <em>if</em> person.mother():
+<number>5</number>                 <var>assign_index</var>(person.mother(), person.index() +'1')
+<number>6</number>             <em>end if</em>
+<number>7</number>     
+<number>8</number>             <em>if</em> person.father():
+<number>9</number>                 <var>assign</var>(person.father, person.index() + '0')
+<number>10</number>            <em>end if</em>
+<number>11</number>    
+<number>12</number>    <em>end function</em>
 </code></pre>
 <p>
 
