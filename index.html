@@ -38,7 +38,7 @@
 
 </head>
 
-<body>
+<body style="background-color:#2B2B2B;">
 
    <!-- Header
    ================================================== -->
@@ -65,7 +65,7 @@
             <span>
             I'm a computational nuclear engineer, researcher, and software developer.
             <br>
-            I love working on challenging problems for the common good.
+            I love working on challenging problems to serve the common good.
             </span>
             </h3>
             <hr />
@@ -167,8 +167,8 @@ optimizing Monte Carlo simulations for biological dose rate calculations for nuc
                <div class="columns download">
                   <p>
                   <br>
-                     <a href="https://drive.google.com/uc?id=17u5lEam61sgYPNa-RwTe-s0dFQgwkU9-" class="button"><i class="fa fa-download"></i>Download resume</a>
-                     <a href="https://drive.google.com/uc?id=1EJB2SDugvTC3RLhyKhkCjpbl0JYODPKh" class="button"><i class="fa fa-download"></i>Download CV</a>
+                     <a href="https://drive.google.com/uc?id=1CZEhcZ93SSg-Aiit8zZX1aQ2wA2GRvnP" class="button"><i class="fa fa-download"></i>Download resume</a>
+                     <a href="https://drive.google.com/uc?id=1NZRqqC1qmpWLxe2IYT0yTF5_GnrCgX3A" class="button"><i class="fa fa-download"></i>Download CV</a>
                   </p>
                </div>
             </div> <!-- end row -->
@@ -299,7 +299,7 @@ optimizing Monte Carlo simulations for biological dose rate calculations for nuc
          <!-- ----------------------------------------------------------------------------------------------------------------- -->
          <div id="modal-svd" class="popup-modal mfp-hide">
 		      <div class="description-box">
-			      <h3>Singular Value Decomposition (SVD) of Monte Carlo variance reduction parameters</h3>
+			      <h3>Singular Value Decomposition (SVD) of Monte Carlo variance reduction parameters*</h3>
 
 <h4>SVD basics</h4>
 
@@ -335,17 +335,67 @@ Three reconstructions of this image are shown below.
 The $K=20$ reconstruction provides a fairly accurate representation of the image and requires an order of magnitude less storage.
 </p>
 
+
+
 <h4>Nuclear engineering application</h4>
 <p>
 
-Physical space instead of energy space
+Monte Carlo radiation transport calcuations are used to access the safety and
+performance of nuclear reactors and other nuclear systems. These calculations
+generaly employ a class of techniques known as Monte Carlo variance reduction
+in order to obtain results in reasonable CPU times. Variance reduction
+techniques require "importance maps" to be stored in memory. These maps
+estimate how important different regions of space (i.e. elements of a 3D mesh)
+and energy are to the final solution. This requires a significant amount of
+RAM, which can limit the fidelity of the simulation.
 
-<img  src="https://drive.google.com/uc?id=1Jsvg1i_INkqaOz7i-Z3-M6EkGJR7KMQL" alt="" height="70%" width="70%" class="center" style="padding:20px;"/>
+SVD can be used to compress the importance maps for reduced storage
+requirements. In the example above, The $\mathbf{A}$ matrix represented the two
+spatial dimension of the eye image. Importance maps generally have 4 dimension:
+$x$-, $y$-, and $z$-position, and energy. In this work, the 3 spatial
+dimenstions are collapses such that the the 2 dimensions of the $\mathbf{A}$
+matrix represent space and energy. A Python program was created in order to decomposed these matricies using the 
+<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.svd.html">Scipy implementation of SVD</a>.
+
+While this work is still in progress, some preliminary analysis was done using a 
+<a href="https://holtecinternational.com/productsandservices/wasteandfuelmanagement/dry-cask-and-storage-transport/hi-storm/">Holtec HI-STORM MPC</a> spent nuclear fuel storage cask with a simple photon source and photon detector, shown below. Note that this is a 2-D slice through a cylindrical fuel cask.
+
+<img  src="https://drive.google.com/uc?id=1fq4j5g7WT_zvUocp9uwpLl8Lp706aZ9h" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+
+This problem used 1,922,000 spatial divisions (124$\times$124$\times$125) and
+19 energy divisions. With this problem, and importance map was generated,
+decomposed, and then reconstructed with will all values of $K$ between 1 and 19
+(the full matrix). These reconstructed importance maps are shown below. Note
+these are 2-D slices through the cylindrical fuel cask through the $z$ axis. Two different energies are shown: 10--20 Mega-electronvolts (MeV) and 100--000 kilo-electronvolts (keV).
+
+<img  src="https://drive.google.com/uc?id=1EyTdOpkP007hApwgw4EnebnmYUApNEVT" alt="" height="70%" width="70%" class="center" style="padding:20px;"/>
+
+These plots shown that even $K = 1$ reconstuctions match the origional
+importance map fairly well. The match is better at higher energies, because at
+low energies the spatial shape of the importance map has a steeper curvature.
+In order to quantify how compressing these importance maps affects performance,
+the standard Monte Carlo figure of merit was used, as given by
+
+$$ {\text{figure of merit}} = \frac{1}{R^2t_{\text{proc}}}. $$
+
+Here, $t_{\text{proc}}$ is the CPU time and $R$ is the relative error of the
+final answer (i.e. the variance of the photon flux in the detector). For each
+set of reconstructed importance maps, variance reduction parameters were
+generated and photon transport simulations were run. The figure of merit ploted
+as a function of $K$ is shown below.
+
 <img  src="https://drive.google.com/uc?id=1eR0vF5sZReEOmzj76sflGE48xlWS8qRl" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
 
-                     Holtec HI-STORM MPC-32 fuel cask
+The line of best fit of this plot has a slope of 0.071, which indicates that
+the performance of the Monte Carlo simulation is not a strong function of the
+$K$ value used to reconstruct the imporatance map. The line of best fit
+indicates that by using a $K=1$ reconstruction, the performance is only reduced
+by a factor of 1.6, while reducing the memory requirements by a factor of 19.
+This is a promising preliminary result and I will be publishing on more
+detailed results shortly.
 
-$$ {\text{figure of merit}} = \frac{1}{R^2t_{\text{proc}}} $$,
+<br><br><i>*This work was cleared for public release as part of the 2017 Oak Ridge Postdoctoral Association Symposium</i>
+
 
 
                   <p/>
@@ -596,11 +646,83 @@ In grad school, one of my favorite courses was <a
 href="http://sbel.wisc.edu/Courses/ME964/">ME759: High-Performance Computing
 for Applications in Engineering</a>. The primary focus of this course was GPU
 computing with CUDA, though we spent some time with MPI and OpenMP as well.
-For my final project, I used LU
+For my final project, I wrote a program to solve a system of linear equations
+on the GPU. The problem I solved takes the form 
 
+$$ A_{n \times n} x_{n \times m} = b_{n \times m} $$
 
+where $A$ is a diagonally-dominiated banded matrix with some bandwidth $k$.
+Problems of this form may arise when using numerical methods to solve ordinary
+and partial differential equations. This equation can be solved in 3 steps: LU
+decomposition, forward substitution, and backward substitution.  For brevity,
+I'll only discuss the first step here. More detail can be found i the links at
+the top of this page.  LU decomposition decomposes the $A$ matrix into lower-
+and upper-triangular matricies $L$ and $U$:
 
-                    <img  src="https://drive.google.com/uc?id=1SiEYCfoq785w2-iht2jKSrmB_nLVXTtg" alt="" height="50%" width="50%" class="center"/>
+$$ A = LU. $$
+
+The algorithm I chose for performing this decomposition is shown below.
+
+</p>
+<div>
+<pre><code>
+<span>1</span>    <em>for</em> i = 0 to n−2
+<span>2</span>    
+<span>3</span>        <em>for</em> j = i+1 to n−1
+<span>4</span>            A[j, i] = A[j, i]/A[i,i]
+<span>5</span>        <em>end for</em>
+<span>6</span>    
+<span>7</span>        <em>for</em> j = i+1 to n−1
+<span>8</span>            <em>for</em> k = i+1 to n−1
+<span>9</span>                A[j, k] = A[j , k] − A[j, i]∗A[i, k]
+<span>10</span>           <em>end for</em>
+<span>11</span>       <em>end for</em>
+<span>12</span>   
+<span>13</span>   <em>end for</em>
+</code></pre>
+</div>
+<p>
+
+This algorithm operates on the matrix in-place, such that resultant $L$ and $U$
+matricies are produced within the lower and upper triangular portion of the
+original $A$ matrix, which helps to minimize memory usage.
+
+<br><br>
+
+I adapted this algorithm to run effiencently on the GPU using CUDA.  This
+algorithm requires syncronization after the for-loop on line 3 and the set of
+for-loops beginging on line 7. Through CUDA can impose syncronization between
+thread in a block, there is no notion of block syncronization. As a result, the
+outmost for-loop must occur on the CPU, and this for loop must call 2 separate
+CUDA kernels: one for the line 3 for-loop and one for the line 7 for-loops
+7.
+
+The line 7 for-loops offered the best potential for parallelization. No
+syncronization is required over $j$ or $k$, so large potions of the $A$ matrix
+can be operated on by different thread simulatiously. This is illustrated in following diagram.
+The rectangle represent the active region of the matrix for a given kernel call
+where the order of kernel calls goes from light to dark. Within each retangle,
+execution is divided into block, and thread within these blocks perform the
+operation appearing on line 9 simultaneously.
+
+<img  src="https://drive.google.com/uc?id=1SiEYCfoq785w2-iht2jKSrmB_nLVXTtg" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
+
+Further memory usage reductions were achieved by using the <a
+href="http://www.netlib.org/lapack/lug/node124.html">band storage</a>
+technique. This technique only stores the values of the band of the matrix. As a result, the active region of the matrix in my implementation proceedes according to the following diagram.
+
+<img  src="https://drive.google.com/uc?id=1BOv_JyQ-f-G3BwTMglf0VvTBdlpIvUcs" alt="" height="23%" width="23%" class="center" style="padding:20px;"/>
+
+The aformentioned forward and backward substitution sets were also implemented. The performance of the program was compared
+<a href="https://software.intel.com/en-us/mkl">band storage</a> on the CPU.
+
+The following plot shows the execution time necessarily to solve a linear
+system with an $A$ matrix of size $n$, with bandwidths $k$ that are 10%, 50%
+and 90% of $n$. The results of this plot are for the case where $m=1$, but scaling analysis was done for $m$ as well.
+
+<img  src="https://drive.google.com/uc?id=13yieiN7U70dPzAtvjhJXnb8vOHOspge4" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+
+This plot shows that CUDA implementation is marginally faster than MKL over a range of matrix dimensions and bandwidths.
 
                   <p/>
 		      </div>
@@ -631,16 +753,20 @@ parent, grand-parent, ..., [$N\times$great]-grand-parent).
 I came up with a very simple recursive algorithm for generating the tree (which is appropriately a tree in the graph-theory sense).
 
 </p>
-<pre><code><em>function</em> <var>assign_index</var>(Person person, string index)
-{
-    person.set_index(index)
-
-    <em>if</em> person.mother():
-        <var>assign_index</var>(person.mother(), person.index() +'1')
-
-    <em>if</em> person.father():
-        <var>assign</var>(person.father, person.index() + '0')
-}</code></pre>
+<pre><code>
+<span>1</span>     <em>function</em> <var>assign_index</var>(Person person, string index)
+<span>2</span>         person.set_index(index)
+<span>3</span>     
+<span>4</span>             <em>if</em> person.mother():
+<span>5</span>                 <var>assign_index</var>(person.mother(), person.index() +'1')
+<span>6</span>             <em>end if</em>
+<span>7</span>     
+<span>8</span>             <em>if</em> person.father():
+<span>9</span>                 <var>assign</var>(person.father, person.index() + '0')
+<span>10</span>            <em>end if</em>
+<span>11</span>    
+<span>12</span>    <em>end function</em>
+</code></pre>
 <p>
 
 The function is called from the root of the tree (e.g. the person whose
