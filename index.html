@@ -1,6 +1,6 @@
  <!DOCTYPE html>
 <!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endow]-->
 <!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 
@@ -115,7 +115,7 @@ href="https://www.ornl.gov/division/rnsd/radiation-transport">Radiation
 Transport Group</a>, as a developer of the <a
 href="https://doi.org/10.1016/j.jcp.2015.12.037">Shift</a> Monte Carlo
 radiation transport code. I develop, implement, and analyze new methods for
-improving the performance and accuracy of nuclear fission reactor simulations
+improving the performance and accuracy of nuclear fission/fusion reactor simulations
 on leadership-class supercomputers.
 
 <br>
@@ -128,7 +128,7 @@ Semiconductor Inc.</a> and as a synthetic organic chemist in the <a
 href="http://noland.chem.umn.edu/">Noland Research Group</a>.  During my junior
 year I was first exposed to scientific computing in a numerical methods course
 and also became interested in nuclear energy as a way to mitigate
-antropogenic climate change.
+anthropogenic climate change.
 
 <br>
 
@@ -144,9 +144,8 @@ My software development skills matured as a leading contributor to the
 <a href="https://github.com/pyne/pyne">Python for Nuclear Engineering Toolkit</a> 
 and as an intern at ORNL working on the 
 <a href="https://info.ornl.gov/sites/publications/files/Pub46035.pdf">ADVANTG</a> code.
-
 My dissertation research focused on
-optimizing Monte Carlo simulations for biological dose rate calculations for nuclear fusion reactors. This involved developing a series of approximations
+optimizing Monte Carlo simulations for biological dose rate calculations for nuclear fusion reactors by approximating the nuclear transmutation process.
 
             </p3>
             <div class="row">
@@ -340,9 +339,9 @@ The $K=20$ reconstruction provides a fairly accurate representation of the image
 <h4>Nuclear engineering application</h4>
 <p>
 
-Monte Carlo radiation transport calcuations are used to access the safety and
+Monte Carlo radiation transport calculations are used to access the safety and
 performance of nuclear reactors and other nuclear systems. These calculations
-generaly employ a class of techniques known as Monte Carlo variance reduction
+generally employ a class of techniques known as Monte Carlo variance reduction
 in order to obtain results in reasonable CPU times. Variance reduction
 techniques require "importance maps" to be stored in memory. These maps
 estimate how important different regions of space (i.e. elements of a 3D mesh)
@@ -353,9 +352,9 @@ SVD can be used to compress the importance maps for reduced storage
 requirements. In the example above, The $\mathbf{A}$ matrix represented the two
 spatial dimension of the eye image. Importance maps generally have 4 dimension:
 $x$-, $y$-, and $z$-position, and energy. In this work, the 3 spatial
-dimenstions are collapses such that the the 2 dimensions of the $\mathbf{A}$
-matrix represent space and energy. A Python program was created in order to decomposed these matricies using the 
-<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.svd.html">Scipy implementation of SVD</a>.
+dimensions are collapses such that the the 2 dimensions of the $\mathbf{A}$
+matrix represent space and energy. A Python program was created in order to decomposed these matrices using the 
+<a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.svd.html">SciPy implementation of SVD</a>.
 
 While this work is still in progress, some preliminary analysis was done using a 
 <a href="https://holtecinternational.com/productsandservices/wasteandfuelmanagement/dry-cask-and-storage-transport/hi-storm/">Holtec HI-STORM MPC</a> spent nuclear fuel storage cask with a simple photon source and photon detector, shown below. Note that this is a 2-D slice through a cylindrical fuel cask.
@@ -370,7 +369,7 @@ these are 2-D slices through the cylindrical fuel cask through the $z$ axis. Two
 
 <img  src="https://drive.google.com/uc?id=1EyTdOpkP007hApwgw4EnebnmYUApNEVT" alt="" height="70%" width="70%" class="center" style="padding:20px;"/>
 
-These plots shown that even $K = 1$ reconstuctions match the origional
+These plots shown that even $K = 1$ reconstructions match the original
 importance map fairly well. The match is better at higher energies, because at
 low energies the spatial shape of the importance map has a steeper curvature.
 In order to quantify how compressing these importance maps affects performance,
@@ -381,14 +380,14 @@ $$ {\text{figure of merit}} = \frac{1}{R^2t_{\text{proc}}}. $$
 Here, $t_{\text{proc}}$ is the CPU time and $R$ is the relative error of the
 final answer (i.e. the variance of the photon flux in the detector). For each
 set of reconstructed importance maps, variance reduction parameters were
-generated and photon transport simulations were run. The figure of merit ploted
+generated and photon transport simulations were run. The figure of merit plotted
 as a function of $K$ is shown below.
 
 <img  src="https://drive.google.com/uc?id=1eR0vF5sZReEOmzj76sflGE48xlWS8qRl" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
 
 The line of best fit of this plot has a slope of 0.071, which indicates that
 the performance of the Monte Carlo simulation is not a strong function of the
-$K$ value used to reconstruct the imporatance map. The line of best fit
+$K$ value used to reconstruct the importance map. The line of best fit
 indicates that by using a $K=1$ reconstruction, the performance is only reduced
 by a factor of 1.6, while reducing the memory requirements by a factor of 19.
 This is a promising preliminary result and I will be publishing on more
@@ -433,8 +432,8 @@ reactor and interact with the materials.
 <br><br>
 
 From the standpoint of computer processing power, these calculations are not
-possible without employing a class of techiques known as Monte Carlo variance
-reduction.  Varience reduction techniques are used to optimize Monte Carlo
+possible without employing a class of techniques known as Monte Carlo variance
+reduction.  Variance reduction techniques are used to optimize Monte Carlo
 transport by first finding an approximate solution to an adjoint formulation of
 the problem.  This is done with respect to a detector response function. In
 terms of a standard optimization problem, the variance of the detector response
@@ -448,7 +447,7 @@ process is much more complicated.
 
 As a component of my dissertation work I developed and implemented a technique
 for automatically generating the neutron detector response function in order to
-optimize Monte Carlo radiation transport for the aformentioned neutron problem.
+optimize Monte Carlo radiation transport for the aforementioned neutron problem.
 The most difficult part of forming this function was approximating the process "neutron activation"
 in which material exposed to neutrons creates a vast network of radioactive 
 products. For example when $^{62}\mathrm{Ni}$ is exposed to a neutrons, the following reactions, and many more, occur:
@@ -469,7 +468,7 @@ $$
 \end{array}
 $$
 
-In general, composition of materials before an after nuclear irradition can be
+In general, composition of materials before an after nuclear irradiation can be
 related via the matrix exponential equation:
 
 $$ \vec{N}(t) = e^{\mathbf{A}t} \vec{N}_0,$$
@@ -480,7 +479,7 @@ a matrix of reaction rates that dependent on the rate in which neutrons pass
 through a given area (the neutron flux). I developed a set of approximations
 that can be used to simplify this matrix exponential such that it becomes a
 linear operator with respect to neutron flux.  The details of this process can
-be found in my disseration/journal article linked at the top of this page, but
+be found in my dissertation/journal article linked at the top of this page, but
 just for fun I will show the final answer for the optimal neutron detector
 response function ($q^+_n$) that results from the approximation of
 $\mathbf{A}$:
@@ -498,7 +497,7 @@ $$
 </p><h4>Demonstration</h4><p>
 
 Here I'll show that my method, which is called Groupwise Transmutation
-Consistant Adjoint Driven Importance Sampling (GT-CADIS) improves the
+Consistent Adjoint Driven Importance Sampling (GT-CADIS) improves the
 convergence rate of Monte Carlo neutron transport by a factor of $O(10^2)$
 relative to the industry-standard method known as Forward-Weight(FW)-CADIS.
 Consider a simple problem shown below consisting of a block of stainless steel
@@ -514,7 +513,7 @@ Using FW-CADIS, neutron detector response function is shown below.
 
 Recall that the variance of this function can be thought of as the guess for
 the objective function. With GT-CADIS, the neutron detector response function
-has a much different shape: the intest in much higher in the regions of
+has a much different shape: the intensity in much higher in the regions of
 stainless steel that border the air duct. Note that only the shape is important here, not the magnitude.
 
 <img  src="https://drive.google.com/uc?id=1J1cUk6NsQtWM2H2etHdjfvKZnPviUP8u" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
@@ -527,7 +526,7 @@ variance reductions parameters, as well as no variance reduction. Without
 variance reduction, the neutron flux converges fastest near the source. With
 FW-CADIS the neutron flux converges at a roughly uniform rate through the
 problem. With GT-CADIS, the neutron flux converges fastest in the area
-immediatly surrounding the area of interest.
+immediately surrounding the area of interest.
 
 <img  src="https://drive.google.com/uc?id=1dLbb3tez6mF3dFB5Nq7EV-GK53K_5wl-" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
 
@@ -651,13 +650,13 @@ on the GPU. The problem I solved takes the form
 
 $$ A_{n \times n} x_{n \times m} = b_{n \times m} $$
 
-where $A$ is a diagonally-dominiated banded matrix with some bandwidth $k$.
+where $A$ is a diagonally-dominate banded matrix with some bandwidth $k$.
 Problems of this form may arise when using numerical methods to solve ordinary
 and partial differential equations. This equation can be solved in 3 steps: LU
 decomposition, forward substitution, and backward substitution.  For brevity,
 I'll only discuss the first step here. More detail can be found i the links at
 the top of this page.  LU decomposition decomposes the $A$ matrix into lower-
-and upper-triangular matricies $L$ and $U$:
+and upper-triangular matrices $L$ and $U$:
 
 $$ A = LU. $$
 
@@ -684,24 +683,24 @@ The algorithm I chose for performing this decomposition is shown below.
 <p>
 
 This algorithm operates on the matrix in-place, such that resultant $L$ and $U$
-matricies are produced within the lower and upper triangular portion of the
+matrices are produced within the lower and upper triangular portion of the
 original $A$ matrix, which helps to minimize memory usage.
 
 <br><br>
 
-I adapted this algorithm to run effiencently on the GPU using CUDA.  This
-algorithm requires syncronization after the for-loop on line 3 and the set of
-for-loops beginging on line 7. Through CUDA can impose syncronization between
-thread in a block, there is no notion of block syncronization. As a result, the
-outmost for-loop must occur on the CPU, and this for loop must call 2 separate
+I adapted this algorithm to run efficiently on the GPU using CUDA.  This
+algorithm requires synchronization after the for-loop on line 3 and the set of
+for-loops beginning on line 7. Through CUDA can impose synchronization between
+thread in a block, there is no notion of block synchronization. As a result, the
+outermost for-loop must occur on the CPU, and this for loop must call 2 separate
 CUDA kernels: one for the line 3 for-loop and one for the line 7 for-loops
 7.
 
 The line 7 for-loops offered the best potential for parallelization. No
-syncronization is required over $j$ or $k$, so large potions of the $A$ matrix
-can be operated on by different thread simulatiously. This is illustrated in following diagram.
+synchronization is required over $j$ or $k$, so large potions of the $A$ matrix
+can be operated on by different thread simultaneously. This is illustrated in following diagram.
 The rectangle represent the active region of the matrix for a given kernel call
-where the order of kernel calls goes from light to dark. Within each retangle,
+where the order of kernel calls goes from light to dark. Within each rectangle,
 execution is divided into block, and thread within these blocks perform the
 operation appearing on line 9 simultaneously.
 
@@ -709,11 +708,11 @@ operation appearing on line 9 simultaneously.
 
 Further memory usage reductions were achieved by using the <a
 href="http://www.netlib.org/lapack/lug/node124.html">band storage</a>
-technique. This technique only stores the values of the band of the matrix. As a result, the active region of the matrix in my implementation proceedes according to the following diagram.
+technique. This technique only stores the values of the band of the matrix. As a result, the active region of the matrix in my implementation proceeds according to the following diagram.
 
 <img  src="https://drive.google.com/uc?id=1BOv_JyQ-f-G3BwTMglf0VvTBdlpIvUcs" alt="" height="23%" width="23%" class="center" style="padding:20px;"/>
 
-The aformentioned forward and backward substitution sets were also implemented. The performance of the program was compared
+The aforementioned forward and backward substitution sets were also implemented. The performance of the program was compared
 <a href="https://software.intel.com/en-us/mkl">band storage</a> on the CPU.
 
 The following plot shows the execution time necessarily to solve a linear
