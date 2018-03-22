@@ -230,6 +230,48 @@ ul#nav li.current a { color: #F06000; }
    font-size: 20px;
 }
 
+/* ------------------------------------------------------------------ */
+/* d. Publications Section
+/* ------------------------------------------------------------------ */
+
+#publications {
+   background: #fff;
+   padding-top: 90px;
+   padding-bottom: 72px;
+   overflow: hidden;
+}
+
+#publications a, #publications a:visited  { color: #11ABB0; }
+#publications a:hover, #publications a:focus { color: #313131; }
+
+#publications h1 {
+   font: 15px/24px 'opensans-semibold', sans-serif;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   text-align: center;
+   margin-bottom: 48px;
+   color: #95A3A3;
+}
+
+#publications h3 {
+   font: 25px/30px 'opensans-bold', sans-serif;
+}
+
+#publications li {
+   font: 16px/22px 'opensans-regular', sans-serif;
+}
+
+#publications span {
+   font: 16px/22px 'opensans-bold', sans-serif;
+}
+
+#publications em {
+   font: 16px/22px 'opensans-italic', sans-serif;
+}
+
+#publications .header-col { padding-top: 9px; }
+#publications .main-col { padding-right: 10%; }
+
 
 /* ------------------------------------------------------------------ */
 /* d. Resume Section
