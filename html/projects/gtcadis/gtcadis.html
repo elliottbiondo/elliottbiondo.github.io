@@ -1,0 +1,150 @@
+         <!-- ----------------------------------------------------------------------------------------------------------------- -->
+         <div id="modal-gtcadis" class="popup-modal mfp-hide">
+		      <div class="description-box">
+			      <h3>Optimizing gamma dose rate calculations for nuclear fusion shielding</h3>
+			      <p>
+                    <a href="https://drive.google.com/uc?id=1P1zolvdd0gvulS6iJ3rjXvLGiOjNbl1M">Dissertation</a> <br>
+                    <a href="https://doi.org/10.1080/00295639.2016.1275848"> 2017 journal article</a>    <br><br>
+
+</p><h4>Theory</h4><p>
+
+One of the challenges of designing and operating nuclear fusion reactors (such
+as <a href="https://www.iter.org/mach">ITER</a>) is the creation of radioactive
+materials. For most viable nuclear fusion fuels, the process of fusing atomic
+nuclei releases high-energy neutrons.  These neutrons can penetrate through the
+structural materials of the reactor and convert normally harmless materials
+such as the iron in stainless steel or the hydrogen in water into radioactive
+isotopes.  Even after the reactor is switched off, these isotopes will persist
+and emit high-energy photons (gamma rays) as they decay.
+Some of these photons travel to areas where people may be taking measurements
+or doing maintenance, so it is necessary to estimate the potential biological
+dose rate. This is generally done using Monte Carlo radiation transport, which
+involves simulating the paths that particles take as they move through the
+reactor and interact with the materials. 
+
+<br><br>
+
+From the standpoint of computer processing power, these calculations are not
+possible without employing a class of techniques known as Monte Carlo variance
+reduction.  Variance reduction techniques are used to optimize Monte Carlo
+transport by first finding an approximate solution to an adjoint formulation of
+the problem (though not all techniques are explicitly formulated this way).  This is done with respect to a detector response function. In
+terms of a standard optimization problem, the variance of the detector response
+function can be thought of as an objective function that should be minimized.  For decay photons,
+defining this detector response function is straightforward, as I demonstrated
+in earlier work <a href="https://doi.org/10.1016/j.fusengdes.2016.03.004">[2016
+journal article]</a>.  For the neutrons that produce the decay photons, this
+process is much more complicated.
+
+<br><br>
+
+As a component of my dissertation work I developed and implemented a technique
+for automatically generating the neutron detector response function in order to
+optimize Monte Carlo radiation transport for the aforementioned neutron problem.
+The most difficult part of forming this function was approximating the process of "neutron activation"
+in which material exposed to neutrons creates a vast network of radioactive 
+products. For example when $^{62}\mathrm{Ni}$ is exposed to neutrons, the following reactions, and many more, occur:
+
+$$
+{^{62}\mathrm{Ni}}
+\xrightarrow{\textrm{(n, $\alpha$)}}
+{^{59}\mathrm{Fe}}
+\xrightarrow{\beta^-}
+{^{59}\mathrm{Co}}
+\begin{array}{ll}
+\xrightarrow{\textrm{(n, $\gamma$)}}
+{^{60}\mathrm{Co}} \\
+\xrightarrow{\textrm{(n, $\gamma$)}}
+{^{60\mathrm{m}}\mathrm{Co}}
+\xrightarrow{\mathrm{IT}}
+{^{60}\mathrm{Co}}
+\end{array}
+$$
+
+In general, composition of materials before and after nuclear irradiation can be
+related via the matrix exponential equation:
+
+$$ \vec{N}(t) = e^{\mathbf{A}t} \vec{N}_0,$$
+
+where $\vec{N}_0$ and $\vec{N}(t)$ are vectors describing the composition of a
+material before and after neutron irradiation for time $t$. The $\mathbf{A}$ is
+a matrix of reaction rates that depend on the rate in which neutrons pass
+through a given area (the neutron flux). I developed a set of approximations
+that can be used to simplify this matrix exponential such that it becomes a
+linear operator with respect to neutron flux.  The details of this process can
+be found in my dissertation/journal article linked at the top of this page, but
+just for fun I will show the final answer for the optimal neutron detector
+response function ($q^+_n$) that results from the approximation of
+$\mathbf{A}$:
+
+$$
+\begin{align}
+q^+_n(E_n, E_p) = \int_{E_p} \text{d}{E_p} \phi^+_p(E_p)
+\sum\limits_{c} \lambda_{c, i_c} b_{c, i_c}(E_p)  N_{c,1}(0)  \Bigg\lbrack \Big\lbrack &\sigma_{c, 1 \rightarrow 2}(E_n) \frac{t_{\text{irr}}^{i_c-1}}{(i_c-1)!} \prod\limits_{j=3}^{i_c}  P_{c, j} \Big\rbrack e^{-d_{c, i_c} t_{\text{decay}}}\\
+& + \sum_{j=2}^{i_c-1}  \Big\lbrack \sigma_{c, 1 \rightarrow 2}(E_n) \frac{t_{\text{irr}}^{j-1}}{(j-1)!} \prod\limits_{k=3}^{j}  P_{c, k}  \Big\rbrack B_{c,i_c,j}(t_{\text{decay}}) \Bigg\rbrack.
+\end{align}
+$$
+
+<br>
+
+</p><h4>Demonstration</h4><p>
+
+Here I'll show that my method, which is called Groupwise Transmutation
+Consistent Adjoint Driven Importance Sampling (GT-CADIS) improves the
+convergence rate of Monte Carlo neutron transport by a factor of $O(10^2)$
+relative to the industry-standard method known as Forward-Weighted (FW)-CADIS.
+Consider a simple problem shown below consisting of a block of stainless steel
+(gray) with a U-shaped air-duct, a neutron source (blue) and a region (orange)
+where we'd like to estimate the biological dose rate from photons after neutron
+irradiation.
+
+<img  src="https://drive.google.com/uc?id=1JS_Y4xy8cFAP_cVv7iSmUyW80JjqDBZz" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
+
+Using FW-CADIS, neutron detector response function is shown below.
+
+<img  src="https://drive.google.com/uc?id=1WvGWzdBw6j_sp5R0bqXt0sOs4CJ95X32" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+
+Recall that the variance of this function can be thought of as the guess for
+the objective function. With GT-CADIS, the neutron detector response function
+has a much different shape: the intensity is much higher in the regions of
+stainless steel that border the air duct. Note that only the shape is important here, not the magnitude (or even units!).
+
+<img  src="https://drive.google.com/uc?id=1J1cUk6NsQtWM2H2etHdjfvKZnPviUP8u" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+
+I generated variance reduction parameters using both detector response
+functions and tracked the rate of convergence of Monte Carlo simulations using
+each set.  The image below shows the relative error in the neutron flux as a
+function of neutron transport processor time using GT-CADIS and FW-CADIS
+variance reduction parameters, as well as no variance reduction. Without
+variance reduction, the neutron flux converges fastest near the source. With
+FW-CADIS the neutron flux converges at a roughly uniform rate throughout the
+problem. With GT-CADIS, the neutron flux converges fastest in the area
+immediately surrounding the area of interest, as expected.
+
+<img  src="https://drive.google.com/uc?id=1dLbb3tez6mF3dFB5Nq7EV-GK53K_5wl-" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
+
+In order to quantify how much faster the simulation converges with GT-CADIS, the Monte Carlo figure of merit was used, as defined by 
+
+$$ {\text{figure of merit}} = \frac{1}{R^2t_{\text{proc}}}, $$
+
+where R is the relative error of the photon flux in the region of interest
+(e.g. the orange sphere in the geometry image) and $t_{\text{proc}}$ is the
+neutron transport processor time. The figure of merit converges to a constant
+value during a simulation, as seen in the plot below.
+
+<img  src="https://drive.google.com/uc?id=1zF4T2jgIt5XQW5OkB7s34QIWQ8H274La" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+
+The ratio of figure of merits is the speedup. GT-CADIS was found to provide
+speedups of $200 \pm 100$ relative to FW-CADIS and $9 \pm 5 \times 10^5$
+relative to simulations without variance reduction. In other words, GT-CADIS
+drastically reduces the required computational resources necessary for
+calculating these photon dose rates.
+
+                  <p/>
+		      </div>
+            <div class="link-box">
+		         <a class="popup-modal-dismiss">Close</a>
+            </div>
+	      </div><!-- modal-gtcadis End -->
+          <!-- ----------------------------------------------------------------------------------------------------------------- -->
+

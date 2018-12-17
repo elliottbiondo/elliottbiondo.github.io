@@ -1,0 +1,115 @@
+         <!-- ----------------------------------------------------------------------------------------------------------------- -->
+         <div id="modal-svd" class="popup-modal mfp-hide">
+		      <div class="description-box">
+			      <h3>Singular Value Decomposition (SVD) of Monte Carlo variance reduction parameters*</h3>
+
+<h4>SVD basics</h4>
+
+<p>
+Singular Value Decomposition (SVD) is a matrix factorization method that has
+applications in data compression and categorization problems.  For an $m \times
+n$ matrix $\mathbf{A}$ the SVD is
+
+$$\mathbf{A}_{m \times n}  = \mathbf{U}_{m \times m} \mathbf{\Sigma}_{m \times n} \mathbf{V}_{n \times n}^T,$$
+
+where $\Sigma$ is a diagonal matrix. In this diagonal matrix, the entries
+decrease monotonically. As a result, an estimate of $A$ can be formed by
+truncating the $\mathbf{U}$, $\mathbf{\Sigma}$, and $\mathbf{V}$ matrices.
+Specifically, an estimate of the $a_{ij}$ entry in the $\mathbf{A}$ matrix is
+
+$$a_{ij} \approx \sum_{k=1}^K u_{ik} \sigma_{kk} v_{jk}.$$
+
+In other words, an estimate of the $\mathbf{A}$ matrix &mdash; referred to as a
+"reconstruction" &mdash; can be obtained by storing only the first $K$ rows in
+$\mathbf{U}$, the first $K$ entries along the diagonal of $\mathbf{\Sigma}$,
+and the first $K$ columns in $\mathbf{V}$, which may result in significant
+memory savings. For example, consider the following $211 \times 340$ pixel
+image of an eye.
+
+<img  src="https://drive.google.com/uc?id=1ieRM8Ma512o94UAHrLNPh4gdpSEVSO7J" alt="" height="40%" width="40%" class="center" style="padding:20px;"/>
+
+This image can be represented by a $211 \times 340$ matrix with entries
+representing the color of each pixel (gray-scale values between 0 and 1).
+Three reconstructions of this image are shown below.
+
+<img  src="https://drive.google.com/uc?id=1X01YJz4YmtpMCXiqGWruuLSJcpIv1khH" alt="" height="70%" width="70%" class="center" style="padding:20px;" />
+
+The $K=20$ reconstruction provides a fairly accurate representation of the image and requires an order of magnitude less storage.
+</p>
+
+
+
+<h4>Nuclear engineering application</h4>
+<p>
+
+Monte Carlo radiation transport calculations are used to assess the safety and
+performance of nuclear reactors and other nuclear systems. These calculations
+generally employ a class of techniques known as Monte Carlo variance reduction
+in order to obtain results in reasonable CPU times. Variance reduction
+techniques require "importance maps" to be stored in memory. These maps
+estimate how important different regions of space (i.e. elements of a 3D mesh)
+and energy are to the final solution. This requires a significant amount of
+RAM, which can limit the fidelity of the simulation that can be achieved.
+
+<br>
+
+SVD can be used to compress the importance maps for reduced memory
+requirements. In the example above, the $\mathbf{A}$ matrix represents the two
+spatial dimensions of the eye image. Importance maps generally have 4
+dimensions: $x$-, $y$-, and $z$-position, and energy. In this work, the 3
+spatial dimensions are collapsed such that the the 2 dimensions of the
+$\mathbf{A}$ matrix represent space and energy. A Python program was created in
+order to decomposed these matrices using the <a
+href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.svd.html">SciPy
+implementation of SVD</a>.
+
+While this work is still in progress, some preliminary analysis was done using a 
+<a href="https://holtecinternational.com/productsandservices/wasteandfuelmanagement/dry-cask-and-storage-transport/hi-storm/">Holtec HI-STORM MPC</a> spent nuclear fuel storage cask with a simple photon source and photon detector, shown below. Note that this is a 2-D slice through a cylindrical fuel cask.
+
+<img  src="https://drive.google.com/uc?id=1fq4j5g7WT_zvUocp9uwpLl8Lp706aZ9h" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+
+This problem used 1,922,000 spatial divisions (124$\times$124$\times$125) and
+19 energy divisions. With this problem, an importance map was generated,
+decomposed, and then reconstructed with all values of $K$ between 1 and 19 (the
+full matrix). These reconstructed importance maps are shown below. Note these
+are 2-D slices through the cylindrical fuel cask through the $z$-axis. Two
+different energies are shown: $10-20$ Mega-electronvolts (MeV) and $100-200$
+kilo-electronvolts (keV).
+
+<img  src="https://drive.google.com/uc?id=1EyTdOpkP007hApwgw4EnebnmYUApNEVT" alt="" height="70%" width="70%" class="center" style="padding:20px;"/>
+
+These plots qualitatively show that even $K = 1$ reconstructions match the
+original importance map fairly well. The match is better at higher energies,
+because at low energies the spatial shape of the importance map has a steeper
+curvature.  In order to quantify how compressing these importance maps affects
+performance, the standard Monte Carlo figure of merit was used, as given by
+
+$$ {\text{figure of merit}} = \frac{1}{R^2t_{\text{proc}}}. $$
+
+Here, $t_{\text{proc}}$ is the CPU time and $R$ is the relative error of the
+final answer (i.e. the photon flux in the detector). For each
+set of reconstructed importance maps, variance reduction parameters were
+generated and photon transport simulations were run. The figure of merit plotted
+as a function of $K$ is shown below.
+
+<img  src="https://drive.google.com/uc?id=1eR0vF5sZReEOmzj76sflGE48xlWS8qRl" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+
+The line of best fit of this plot has a slope of 0.071, which indicates that
+the performance of the Monte Carlo simulation is not a strong function of the
+$K$ value used to reconstruct the importance map. The line of best fit
+indicates that by using a $K=1$ reconstruction, the performance is only reduced
+by a factor of 1.6, while reducing the memory requirements by a factor of 19.
+This is a promising preliminary result and I will be publishing on more
+detailed results shortly.
+
+<br><br><i>*This work was cleared for public release as part of the 2017 Oak Ridge Postdoctoral Association Symposium</i>
+
+
+
+                  <p/>
+		      </div>
+            <div class="link-box">
+		         <a class="popup-modal-dismiss">Close</a>
+            </div>
+	      </div><!-- modal-svd End -->
+          <!-- ----------------------------------------------------------------------------------------------------------------- -->

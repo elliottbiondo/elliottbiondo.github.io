@@ -1,0 +1,84 @@
+         <!-- ----------------------------------------------------------------------------------------------------------------- -->
+         <div id="modal-turbine" class="popup-modal mfp-hide">
+		      <div class="description-box">
+			      <h4>Tetrahedral mesh probability density functions</h4>
+			      <p>
+                    <a href="https://github.com/pyne/pyne/blob/develop/src/source_sampling.cpp">C++ source</a> 
+                    <br>
+                    <a href="https://github.com/pyne/pyne/blob/develop/tests/test_source_sampling.py">Unit tests (via Python wrapper)</a>
+                    <br>
+                    <a href="http://pyne.io/theorymanual/source_sampling.html">Theory, sample calculations to match unit tests</a>
+                    <br>
+                    <a href="http://pyne.io/usersguide/source_sampling.html">User's guide</a>
+                    <br><br>
+
+Nuclear systems analysis often involves using the Monte Carlo approach to
+simulate the paths that particles (i.e. neutrons and high-energy photons) take
+after they are emitted from a source. This source may be a reactor core,
+particle accelerator, or a radioactive seed used in radiation oncology. When
+using the Monte Carlo approach, the source must be represented as a probability
+density function (PDF) that typically varies as a function of position and
+energy (i.e. energy of the emitted particle).  With-industry standard Monte
+Carlo radiation transport codes such as <a
+href="https://mcnp.lanl.gov/mcnp5.shtml">MCNP5</a>, users must specify these
+PDFs through the combination of rudimentary 1-dimensional PDFs such has
+histogram, linear, and point-wise distributions.  There are many cases when the
+PDF is too complex for this method to be practical, such as cases where
+particles are emitted from nuclear fusion plasmas or irradiated structural
+materials.
+
+<br><br>
+
+I have added code to the <a href="https://github.com/pyne/pyne">Python for
+Nuclear Engineering</a> toolkit for the creation of energy-dependent Cartesian-
+or tetrahedral mesh-based PDFs. These PDF can be sampling using unbiased and
+biased sampling techniques that allow for the use of Monte Carlo variance
+reduction. Sampling is done using the <a
+href="http://ieeexplore.ieee.org/document/4245054/?reload=true">Alias
+method</a>, which allows for O(1) scaling with respect to the number of
+discrete bins in the PDF. My code is written in C++ and also has Python and
+Fortran interfaces and can be compiled directly into existing Monte Carlo codes.
+More information can be found in the links at the top of this page.
+
+<br><br>
+
+Here's a quick demonstration of how this code can be used to create extremely
+complex particle sources.  Consider this CAD model of a turbine rotor I found on
+<a href="https://grabcad.com/">GrabCAD</a>. 
+
+<img  src="https://drive.google.com/uc?id=1d0WAQUJQP_3BkGWZHfF6iThxfzYd6MyP" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
+
+I created a conformal tetrahedral mesh of this model using <a
+href="https://cubit.sandia.gov/">CUBIT</a>. I then iterated through tetrahedral
+elements of the mesh and assigned a source strength to each element based on the
+$x$, $y$, $z$ coordinates of the center of the element using this equation:
+
+
+$$q(x, y, z) = sin\left(\frac{x^2 + y^2 + (z + 10)^2}{1200}\right) + 1.$$
+
+This equation does not have any physical significance, but it serves as a good
+example because it would not be possible to represent using industry-standard
+Monte Carlo codes. The resulting particle source PDF is shown below.
+
+<img  src="https://drive.google.com/uc?id=1OnJxs8PUgx5vi6pzDqbXruKd45Ds5k0-" alt="" height="38%" width="38%" class="center" style="padding:20px;"/>
+
+I compiled my C++ routine directly into MCNP via the Fortran interface I
+created. I was then able to use the PDF shown above as a particle source for a
+photon transport simulation. Below is an image showing the photon flux
+distribution.
+
+<img  src="https://drive.google.com/uc?id=1JJ6Gzu6YhwyqWUaDwKPjd7bPti00G9DK" alt="" height="45%" width="45%" class="center" style="padding:20px;"/>
+
+Although this example was just for fun, I have used this code as a component of
+a software system I created for estimating biological dose rates for nuclear
+fusion reactors problems <a href="https://doi.org/10.1016/j.fusengdes.2016.03.004">[2016
+journal article]</a>. 
+
+
+                  <p/>
+		      </div>
+            <div class="link-box">
+		         <a class="popup-modal-dismiss">Close</a>
+            </div>
+	      </div><!-- modal-turbine End -->
+          <!-- ----------------------------------------------------------------------------------------------------------------- -->

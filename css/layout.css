@@ -33,7 +33,7 @@ header {
    height: 800px;
    min-height: 500px;
    width: 100%;
-   background: #161415 url(https://drive.google.com/uc?id=1cZY_EiiUzt9jYXwT9CnnHRk2Fdi7LPRA) no-repeat top center;
+   background: #161415 url("https://drive.google.com/uc?id=1oq_yzpvWqqxEi6fUwSNQUJou_uA07Abf") no-repeat top center;
    background-size: cover !important;
 	-webkit-background-size: cover !important;
    text-align: center;

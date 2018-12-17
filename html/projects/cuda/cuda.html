@@ -1,0 +1,99 @@
+         <!-- ----------------------------------------------------------------------------------------------------------------- -->
+         <div id="modal-cuda" class="popup-modal mfp-hide">
+		      <div class="description-box">
+			      <h4>GPU-parallelized matrix LU decomposition with CUDA</h4>
+			      <p>
+                    <a href="https://github.com/elliottbiondo/ME759_final_project">C++ source</a> 
+                    <br>
+                    <a href="https://drive.google.com/uc?id=109i9abkckd_H7_TjX6rYnNYml797JjjT">Report</a> 
+                    <br><br>
+
+In grad school, one of my favorite courses was <a
+href="http://sbel.wisc.edu/Courses/ME964/">ME759: High-Performance Computing
+for Applications in Engineering</a>. The primary focus of this course was GPU
+computing with CUDA, though we spent some time with MPI and OpenMP as well.
+For my final project, I wrote a program to solve a system of linear equations
+on the GPU. The problem I solved takes the form 
+
+$$ A_{n \times n} x_{n \times m} = b_{n \times m} $$
+
+where $A$ is a diagonally-dominant banded matrix with some bandwidth $k$.
+Problems of this form may arise when using numerical methods to solve ordinary
+and partial differential equations. This equation can be solved in 3 steps: LU
+decomposition, forward substitution, and backward substitution.  For brevity,
+I'll only discuss the first step here. More details can be found in the links at
+the top of this page.  LU decomposition decomposes the $A$ matrix into lower-
+and upper-triangular matrices $L$ and $U$:
+
+$$ A = LU. $$
+
+The algorithm I chose for performing this decomposition is shown below.
+
+</p>
+<div>
+<pre><code>
+<number>1</number>    <em>for</em> i = 0 to n−2
+<number>2</number>    
+<number>3</number>        <em>for</em> j = i+1 to n−1
+<number>4</number>            A[j, i] = A[j, i]/A[i,i]
+<number>5</number>        <em>end for</em>
+<number>6</number>    
+<number>7</number>        <em>for</em> j = i+1 to n−1
+<number>8</number>            <em>for</em> k = i+1 to n−1
+<number>9</number>                A[j, k] = A[j , k] − A[j, i]∗A[i, k]
+<number>10</number>           <em>end for</em>
+<number>11</number>       <em>end for</em>
+<number>12</number>   
+<number>13</number>   <em>end for</em>
+</code></pre>
+</div>
+<p>
+
+This algorithm operates on the matrix in-place, such that resultant $L$ and $U$
+matrices are produced within the lower and upper triangular portion of the
+original $A$ matrix, which helps to minimize memory usage.
+
+<br><br>
+
+I adapted this algorithm to run efficiently on the GPU using CUDA.  This
+algorithm requires synchronization after the for-loop on line 3 and the set of
+for-loops beginning on line 7. Though CUDA can impose synchronization between
+threads within a block, there is no notion of block synchronization. As a
+result, the outermost for-loop must occur on the CPU, and this for-loop must
+call 2 separate CUDA kernels: one for the line 3 for-loop and one for the line
+7 for-loops. The line 7 for-loops offered the best potential for
+parallelization.  No synchronization is required over $j$ or $k$, so large
+portions of the $A$ matrix can be operated on by different threads
+simultaneously. This is illustrated in the following diagram. The rectangles
+represent the active region of the matrix for a given kernel call where the
+order of kernel calls goes from light to dark.  Within each rectangle,
+execution is divided into blocks, and threads within these blocks perform the
+operation appearing on line 9 simultaneously.
+
+<img  src="https://drive.google.com/uc?id=1SiEYCfoq785w2-iht2jKSrmB_nLVXTtg" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
+
+Further memory usage reductions were achieved by using the <a
+href="http://www.netlib.org/lapack/lug/node124.html">band storage</a>
+technique. This technique only stores the values within the band of the matrix. As a result, the active region of the matrix in my implementation proceeds according to the following diagram.
+
+<img  src="https://drive.google.com/uc?id=1BOv_JyQ-f-G3BwTMglf0VvTBdlpIvUcs" alt="" height="23%" width="23%" class="center" style="padding:20px;"/>
+
+The aforementioned forward and backward substitution steps were also
+implemented. The performance of the program was compared to the <a
+href="https://software.intel.com/en-us/mkl">Intel Math Kernel Library (MKL)</a>
+on the CPU.  The following plot shows the execution time necessarily to solve a
+linear system with an $A$ matrix of size $n$, with bandwidths $k$ that are 10%,
+50% and 90% of $n$. The results of this plot are for the case where $m=1$, but
+scaling analysis was done over $m$ as well.
+
+<img  src="https://drive.google.com/uc?id=13yieiN7U70dPzAtvjhJXnb8vOHOspge4" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+
+This plot shows that my CUDA implementation is marginally faster than MKL over a range of matrix dimensions and bandwidths.
+
+                  <p/>
+		      </div>
+            <div class="link-box">
+		         <a class="popup-modal-dismiss">Close</a>
+            </div>
+	      </div><!-- modal-cuda End -->
+         <!-- ----------------------------------------------------------------------------------------------------------------- -->
