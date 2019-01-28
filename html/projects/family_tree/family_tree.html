@@ -18,7 +18,7 @@ decent is supported (i.e.  parent, grand-parent, ...,
 [$N\times$great]-grand-parent).
 
 I came up with a very simple recursive algorithm for generating the tree (which
-is appropriately a tree in the graph-theory sense). 
+is a balanced binary tree in the graph-theory sense). 
 
 </p>
 <pre><code>
@@ -38,7 +38,7 @@ is appropriately a tree in the graph-theory sense).
 <p>
 
 This function is called from the root of the tree (e.g. the person whose
-ancestor's you'd like to plot). Each person in the tree is assigned an index
+ancestors you'd like to plot). Each person in the tree is assigned an index
 string. The length of the string is the generation they belongs to. For
 example, <code>'010'</code> denotes the father's mother's father
 (great-grandfather) of the root person. The generation that this person belong
