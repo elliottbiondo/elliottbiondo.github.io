@@ -368,8 +368,8 @@ ul#nav li.current a { color: #F06000; }
    border-radius: 3px 0 0 3px;
 }
 
+.cpp {width: 90%;}
 .python {width: 90%}
-.cpp {width: 80%;}
 .cuda {width: 75%;}
 .matlab {width: 75%;}
 .git {width: 85%;}
