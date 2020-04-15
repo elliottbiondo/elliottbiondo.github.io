@@ -46,7 +46,7 @@ Here's a quick demonstration of how this code can be used to create extremely
 complex particle sources.  Consider this CAD model of a turbine rotor I found on
 <a href="https://grabcad.com/">GrabCAD</a>. 
 
-<img  src="https://drive.google.com/uc?id=1d0WAQUJQP_3BkGWZHfF6iThxfzYd6MyP" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
+<img  src="html/projects/turbine/files/turbine_cad.png" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
 
 I created a conformal tetrahedral mesh of this model using <a
 href="https://cubit.sandia.gov/">CUBIT</a>. I then iterated through tetrahedral
@@ -60,14 +60,14 @@ This equation does not have any physical significance, but it serves as a good
 example because it would not be possible to represent using industry-standard
 Monte Carlo codes. The resulting particle source PDF is shown below.
 
-<img  src="https://drive.google.com/uc?id=1OnJxs8PUgx5vi6pzDqbXruKd45Ds5k0-" alt="" height="38%" width="38%" class="center" style="padding:20px;"/>
+<img  src="html/projects/turbine/files/turbine_src_mesh.png" alt="" height="38%" width="38%" class="center" style="padding:20px;"/>
 
 I compiled my C++ routine directly into MCNP via the Fortran interface I
 created. I was then able to use the PDF shown above as a particle source for a
 photon transport simulation. Below is an image showing the photon flux
 distribution.
 
-<img  src="https://drive.google.com/uc?id=1JJ6Gzu6YhwyqWUaDwKPjd7bPti00G9DK" alt="" height="45%" width="45%" class="center" style="padding:20px;"/>
+<img  src="html/projects/turbine/files/turbine_flux.png" alt="" height="45%" width="45%" class="center" style="padding:20px;"/>
 
 Although this example was just for fun, I have used this code as a component of
 a software system I created for estimating biological dose rates for nuclear

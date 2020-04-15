@@ -5,7 +5,7 @@
 			      <p>
                     <a href="https://github.com/elliottbiondo/ME759_final_project">C++ source</a> 
                     <br>
-                    <a href="https://drive.google.com/uc?id=109i9abkckd_H7_TjX6rYnNYml797JjjT">Report</a> 
+                    <a href="html/projects/cuda/files/report.pdf">Report</a> 
                     <br><br>
 
 In grad school, one of my favorite courses was <a
@@ -70,13 +70,13 @@ order of kernel calls goes from light to dark.  Within each rectangle,
 execution is divided into blocks, and threads within these blocks perform the
 operation appearing on line 9 simultaneously.
 
-<img  src="https://drive.google.com/uc?id=1SiEYCfoq785w2-iht2jKSrmB_nLVXTtg" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
+<img  src="html/projects/cuda/files/matrix.png" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
 
 Further memory usage reductions were achieved by using the <a
 href="http://www.netlib.org/lapack/lug/node124.html">band storage</a>
 technique. This technique only stores the values within the band of the matrix. As a result, the active region of the matrix in my implementation proceeds according to the following diagram.
 
-<img  src="https://drive.google.com/uc?id=1BOv_JyQ-f-G3BwTMglf0VvTBdlpIvUcs" alt="" height="23%" width="23%" class="center" style="padding:20px;"/>
+<img  src="html/projects/cuda/files/band_matrix.png" alt="" height="23%" width="23%" class="center" style="padding:20px;"/>
 
 The aforementioned forward and backward substitution steps were also
 implemented. The performance of the program was compared to the <a
@@ -86,7 +86,7 @@ linear system with an $A$ matrix of size $n$, with bandwidths $k$ that are 10%,
 50% and 90% of $n$. The results of this plot are for the case where $m=1$, but
 scaling analysis was done over $m$ as well.
 
-<img  src="https://drive.google.com/uc?id=13yieiN7U70dPzAtvjhJXnb8vOHOspge4" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+<img  src="html/projects/cuda/files/cuda_results.png" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
 
 This plot shows that my CUDA implementation is marginally faster than MKL over a range of matrix dimensions and bandwidths.
 

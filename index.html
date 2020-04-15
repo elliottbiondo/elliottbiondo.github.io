@@ -110,7 +110,7 @@
             <h2>About Me</h2>
             <p3>
         
-I am a postdoctoral researcher at Oak Ridge National Laboratory
+I am an Associate Research Staff Member at Oak Ridge National Laboratory
 (ORNL) in Oak Ridge, Tennessee. I work in the <a
 href="https://www.ornl.gov/division/rnsd/radiation-transport">Radiation
 Transport Group</a>, as a developer of the <a
@@ -204,7 +204,7 @@ approximating the nuclear transmutation process.
        	   <div class="columns portfolio-item">
                <div class="item-wrap">
                   <a href="#modal-gtcadis" title="">
-                     <img alt="" src="https://drive.google.com/uc?id=1es2HuTMVLPSSKd2kBxNnUSoqcG-nn1Ht">
+                     <img alt="" src="html/projects/gtcadis/files/gtcadis_square.png">
                       <div class="overlay">
        			      </div>
                         <div class="portfolio-item-meta">
@@ -221,7 +221,7 @@ approximating the nuclear transmutation process.
           	   <div class="columns portfolio-item">
                   <div class="item-wrap">
                      <a href="#modal-turbine" title="">
-                        <img alt="" src="https://drive.google.com/uc?id=1oWlX4_7nT3ygydk0Ouv18m_VqfieQXav">
+                        <img alt="" src="html/projects/turbine/files/turbine_src_mesh_square.png">
                           <div class="overlay">
        			              </div>
                            <div class="portfolio-item-meta">
@@ -238,7 +238,7 @@ approximating the nuclear transmutation process.
        	   <div class="columns portfolio-item">
                <div class="item-wrap">
                   <a href="#modal-cuda" title="">
-                     <img alt="" src="https://drive.google.com/uc?id=1sgl8ZTIo38H89nSrwD6_MAaV8V6I7JJ-">
+                     <img alt="" src="html/projects/cuda/files/matrix_square.png">
                           <div class="overlay">
        			              </div>
                         <div class="portfolio-item-meta">
@@ -255,7 +255,7 @@ approximating the nuclear transmutation process.
        	   <div class="columns portfolio-item">
                <div class="item-wrap">
                   <a href="#modal-fam" title="">
-                     <img alt="" src="https://drive.google.com/uc?id=1OS9ovne50cJaL61I_yBEXClbiUzXMkMz">
+                     <img alt="" src="html/projects/family_tree/files/fam.png">
                           <div class="overlay">
        			              </div>
                         <div class="portfolio-item-meta">
@@ -502,18 +502,18 @@ Consider a simple problem shown below consisting of a block of stainless steel
 where we'd like to estimate the biological dose rate from photons after neutron
 irradiation.
 
-<img  src="https://drive.google.com/uc?id=1JS_Y4xy8cFAP_cVv7iSmUyW80JjqDBZz" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
+<img  src="html/projects/gtcadis/files/photon_geom.png" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
 
 Using FW-CADIS, neutron detector response function is shown below.
 
-<img  src="https://drive.google.com/uc?id=1WvGWzdBw6j_sp5R0bqXt0sOs4CJ95X32" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+<img  src="html/projects/gtcadis/files/fwcadis_adj_n_src.png" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
 
 Recall that the variance of this function can be thought of as the guess for
 the objective function. With GT-CADIS, the neutron detector response function
 has a much different shape: the intensity is much higher in the regions of
 stainless steel that border the air duct. Note that only the shape is important here, not the magnitude (or even units!).
 
-<img  src="https://drive.google.com/uc?id=1J1cUk6NsQtWM2H2etHdjfvKZnPviUP8u" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+<img  src="html/projects/gtcadis/files/gtcadis_adj_n_src.png" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
 
 I generated variance reduction parameters using both detector response
 functions and tracked the rate of convergence of Monte Carlo simulations using
@@ -525,7 +525,7 @@ FW-CADIS the neutron flux converges at a roughly uniform rate throughout the
 problem. With GT-CADIS, the neutron flux converges fastest in the area
 immediately surrounding the area of interest, as expected.
 
-<img  src="https://drive.google.com/uc?id=1dLbb3tez6mF3dFB5Nq7EV-GK53K_5wl-" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
+<img  src="html/projects/gtcadis/files/rel_error_plots.jpg" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
 
 In order to quantify how much faster the simulation converges with GT-CADIS, the Monte Carlo figure of merit was used, as defined by 
 
@@ -536,7 +536,7 @@ where R is the relative error of the photon flux in the region of interest
 neutron transport processor time. The figure of merit converges to a constant
 value during a simulation, as seen in the plot below.
 
-<img  src="https://drive.google.com/uc?id=1zF4T2jgIt5XQW5OkB7s34QIWQ8H274La" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+<img  src="html/projects/gtcadis/files/fom_big.png" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
 
 The ratio of figure of merits is the speedup. GT-CADIS was found to provide
 speedups of $200 \pm 100$ relative to FW-CADIS and $9 \pm 5 \times 10^5$
@@ -600,7 +600,7 @@ Here's a quick demonstration of how this code can be used to create extremely
 complex particle sources.  Consider this CAD model of a turbine rotor I found on
 <a href="https://grabcad.com/">GrabCAD</a>. 
 
-<img  src="https://drive.google.com/uc?id=1d0WAQUJQP_3BkGWZHfF6iThxfzYd6MyP" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
+<img  src="html/projects/turbine/files/turbine_cad.png" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
 
 I created a conformal tetrahedral mesh of this model using <a
 href="https://cubit.sandia.gov/">CUBIT</a>. I then iterated through tetrahedral
@@ -614,14 +614,14 @@ This equation does not have any physical significance, but it serves as a good
 example because it would not be possible to represent using industry-standard
 Monte Carlo codes. The resulting particle source PDF is shown below.
 
-<img  src="https://drive.google.com/uc?id=1OnJxs8PUgx5vi6pzDqbXruKd45Ds5k0-" alt="" height="38%" width="38%" class="center" style="padding:20px;"/>
+<img  src="html/projects/turbine/files/turbine_src_mesh.png" alt="" height="38%" width="38%" class="center" style="padding:20px;"/>
 
 I compiled my C++ routine directly into MCNP via the Fortran interface I
 created. I was then able to use the PDF shown above as a particle source for a
 photon transport simulation. Below is an image showing the photon flux
 distribution.
 
-<img  src="https://drive.google.com/uc?id=1JJ6Gzu6YhwyqWUaDwKPjd7bPti00G9DK" alt="" height="45%" width="45%" class="center" style="padding:20px;"/>
+<img  src="html/projects/turbine/files/turbine_flux.png" alt="" height="45%" width="45%" class="center" style="padding:20px;"/>
 
 Although this example was just for fun, I have used this code as a component of
 a software system I created for estimating biological dose rates for nuclear
@@ -643,7 +643,7 @@ journal article]</a>.
 			      <p>
                     <a href="https://github.com/elliottbiondo/ME759_final_project">C++ source</a> 
                     <br>
-                    <a href="https://drive.google.com/uc?id=109i9abkckd_H7_TjX6rYnNYml797JjjT">Report</a> 
+                    <a href="html/projects/cuda/files/report.pdf">Report</a> 
                     <br><br>
 
 In grad school, one of my favorite courses was <a
@@ -708,13 +708,13 @@ order of kernel calls goes from light to dark.  Within each rectangle,
 execution is divided into blocks, and threads within these blocks perform the
 operation appearing on line 9 simultaneously.
 
-<img  src="https://drive.google.com/uc?id=1SiEYCfoq785w2-iht2jKSrmB_nLVXTtg" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
+<img  src="html/projects/cuda/files/matrix.png" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
 
 Further memory usage reductions were achieved by using the <a
 href="http://www.netlib.org/lapack/lug/node124.html">band storage</a>
 technique. This technique only stores the values within the band of the matrix. As a result, the active region of the matrix in my implementation proceeds according to the following diagram.
 
-<img  src="https://drive.google.com/uc?id=1BOv_JyQ-f-G3BwTMglf0VvTBdlpIvUcs" alt="" height="23%" width="23%" class="center" style="padding:20px;"/>
+<img  src="html/projects/cuda/files/band_matrix.png" alt="" height="23%" width="23%" class="center" style="padding:20px;"/>
 
 The aforementioned forward and backward substitution steps were also
 implemented. The performance of the program was compared to the <a
@@ -724,7 +724,7 @@ linear system with an $A$ matrix of size $n$, with bandwidths $k$ that are 10%,
 50% and 90% of $n$. The results of this plot are for the case where $m=1$, but
 scaling analysis was done over $m$ as well.
 
-<img  src="https://drive.google.com/uc?id=13yieiN7U70dPzAtvjhJXnb8vOHOspge4" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+<img  src="html/projects/cuda/files/cuda_results.png" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
 
 This plot shows that my CUDA implementation is marginally faster than MKL over a range of matrix dimensions and bandwidths.
 
@@ -786,7 +786,7 @@ members of a given generation can be sorted from left to right by simply
 converting index values to binary (e.g. <code>'1101' = 13</code>) and sorting
 using the decimal representation. A portion of my family tree is shown below.  
 
-<img  src="https://drive.google.com/uc?id=1OS9ovne50cJaL61I_yBEXClbiUzXMkMz" alt="" height="70%" width="70%" class="center" style="padding:20px;"/>
+<img  src="html/projects/family_tree/files/fam.png" alt="" height="70%" width="70%" class="center" style="padding:20px;"/>
 
                   <p/>
 		      </div>

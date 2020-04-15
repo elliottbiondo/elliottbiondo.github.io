@@ -98,18 +98,18 @@ Consider a simple problem shown below consisting of a block of stainless steel
 where we'd like to estimate the biological dose rate from photons after neutron
 irradiation.
 
-<img  src="https://drive.google.com/uc?id=1JS_Y4xy8cFAP_cVv7iSmUyW80JjqDBZz" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
+<img  src="html/projects/gtcadis/files/photon_geom.png" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
 
 Using FW-CADIS, neutron detector response function is shown below.
 
-<img  src="https://drive.google.com/uc?id=1WvGWzdBw6j_sp5R0bqXt0sOs4CJ95X32" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+<img  src="html/projects/gtcadis/files/fwcadis_adj_n_src.png" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
 
 Recall that the variance of this function can be thought of as the guess for
 the objective function. With GT-CADIS, the neutron detector response function
 has a much different shape: the intensity is much higher in the regions of
 stainless steel that border the air duct. Note that only the shape is important here, not the magnitude (or even units!).
 
-<img  src="https://drive.google.com/uc?id=1J1cUk6NsQtWM2H2etHdjfvKZnPviUP8u" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+<img  src="html/projects/gtcadis/files/gtcadis_adj_n_src.png" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
 
 I generated variance reduction parameters using both detector response
 functions and tracked the rate of convergence of Monte Carlo simulations using
@@ -121,7 +121,7 @@ FW-CADIS the neutron flux converges at a roughly uniform rate throughout the
 problem. With GT-CADIS, the neutron flux converges fastest in the area
 immediately surrounding the area of interest, as expected.
 
-<img  src="https://drive.google.com/uc?id=1dLbb3tez6mF3dFB5Nq7EV-GK53K_5wl-" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
+<img  src="html/projects/gtcadis/files/rel_error_plots.jpg" alt="" height="60%" width="60%" class="center" style="padding:20px;"/>
 
 In order to quantify how much faster the simulation converges with GT-CADIS, the Monte Carlo figure of merit was used, as defined by 
 
@@ -132,7 +132,7 @@ where R is the relative error of the photon flux in the region of interest
 neutron transport processor time. The figure of merit converges to a constant
 value during a simulation, as seen in the plot below.
 
-<img  src="https://drive.google.com/uc?id=1zF4T2jgIt5XQW5OkB7s34QIWQ8H274La" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
+<img  src="html/projects/gtcadis/files/fom_big.png" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
 
 The ratio of figure of merits is the speedup. GT-CADIS was found to provide
 speedups of $200 \pm 100$ relative to FW-CADIS and $9 \pm 5 \times 10^5$
