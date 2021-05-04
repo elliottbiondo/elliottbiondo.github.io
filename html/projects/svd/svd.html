@@ -53,25 +53,41 @@ been for a variety of scientific applicaitons including bioinformativs, signal
 processing, and nuclear reactor noise analysis.
 </p>
 
-<h4>Radiation transport application</h4>
+<h4>Application of SVD to radiation transport</h4>
 <p>
 
 Monte Carlo (MC) radiation transport calculations are used to assess the safety
-and performance of nuclear reactors and other nuclear systems. This methods
-uses a random walk technique to simulate the paths particles (i.e., neutrons or
-photons), take as they move through a nuclear system. By simulating enough of
-these particle paths, statistical methods can be used to surmise the aggragate
-behavior of the system, such as the particle flux distribution throughout a
-region of interest.
+and performance of nuclear reactors and other nuclear systems. This method uses
+a random walk technique to simulate the paths particles (i.e., neutrons or
+photons), take as they move through a nuclear system, from birth (via fission
+or an extermal source) to termination (through absorption reactions or by
+leaving the geomtry bounds). Particle paths are recorded as they move through
+regions of interest, known as tallies. By simulating a large number of
+particles, statiscal methods can be used to estimate radiological quantities
+such as particle flux, biological dose rate, and reactions rates within these
+tallies. 
 
-In order to accelerate the convergence of the solution, most MC codes employ a
-class of biased random sampling techniques known as MC variance reduction (VR).
-These methods require a low-order estimate of the adjoint flux distribution,
-which describes the "importance" of position/energy phase space regions to the
-final result.  This information is supplied via "importance maps": 3D spatial
-meshes with each mesh volume element tagged with an energy-wise adjoint fluxes.
-These important maps require a significant amount of RAM, which can limit the
-fidelity of the simulation that can be achieved.
+<p>
+
+One significant downside of MC radiation transport is when tallies are located
+in regions of low particle flux (i.e., regions that few particles pass
+through), the convergence rates of tallies may be prohibitively low.  To
+address this problem most MC codes employ a class of biased random sampling
+techniques known as MC variance reduction (VR).  VR method allow the code to
+drastically increase the fraction of compute time spent simulating particles
+that are likely to reach the tally, without introducing systematic bias into
+the tally results.
+
+<p>
+
+Industry-standard VR methods require a low-order estimate of the adjoint flux
+distribution, which describes the "importance" of position/energy phase space
+regions to the final result. This information is supplied via "importance
+maps": 3D spatial meshes with each mesh volume element tagged with an
+energy-wise adjoint fluxes.  These important maps require a significant amount
+of RAM, which can limit the fidelity of the simulation that can be achieved.
+
+<p>
 
 SVD can be used to compress importance maps for reduced memory requirements. In
 the example above, the $\mathbf{A}$ matrix represents the two spatial
@@ -107,27 +123,43 @@ Both formulations were implemented and performance tested in the
 <a href="https://doi.org/10.1016/j.jcp.2015.12.037">Shift</a> Monte Carlo
 radiation transport code.
 
-<h4>Westinghouse AP1000 Pressurized Water Reator</h4>
+<h4>Demonstration problem</h4>
 <p>
 
-The AP1000 is a Generation III+ nuclear reactor currently being constructed in
-the US and China. SVD compression of importance maps was tested for the excore dosimetry problem shown below.
-
-        <img src="html/projects/svd/files/ap1000_geom_source.png" alt="" height="75%" width="75%" class="center" style="padding:20px" />
+<h4>UNDER CONSTRUCTION</h4>
+<p>
 
 
+The Westinghouse AP1000 is a Generation III+ nuclear reactor currently being
+constructed in the US and China. SVD compression of importance maps was tested
+for the excore dosimetry problem shown below.  This problem consists of a
+quarter-core model with reflecting boundaries, and a spherical neutron detector
+in the excore region, on the z-midplane. The image on the left shows a
+z-midplane slice of this geometry, with the detector shown in green. The image
+on the right shows the neutron source distribution from fisison. The objective
+of the problem is to transport particles from the fission source, through the
+shielding, to the detector.
 
-This problem consists of a quarter-core model (with reflecting boundaries). The image shows a midplan $Z$-slice
+<img src="html/projects/svd/files/ap1000_geom_source.png" alt="" height="75%" width="75%" class="center" style="padding:20px" />
+
+The Denovo 3D discrete ordainates (S$_N$) code used to obtain an adjoint flux
+distribution (importance map) 44 $\times$ 44 $\times$ 49 spatial mesh with 28
+energy groups. The contour plot below shows the adjoint flux for the
+1.4227–1.8268 MeV energy group (i.e., fission neutrons). This plot shows that
+fission neutrons experience more than 6 orders of magnitude of attenuation
+between the source and detectors.
 
 <img  src="html/projects/svd/files/ap1000_adj_flux.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
+
 <img  src="html/projects/svd/files/ap1000_speedup.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
 
-<h4>Joint European Torus (JET) Fusion Reactor</h4>
-<p>
 
-<img src="html/projects/svd/files/jet_geom_source.png" alt="" height="50%" width="75%" class="center" style="padding:20px;" />
-<img  src="html/projects/svd/files/jet_adj_flux.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
-<img  src="html/projects/svd/files/jet_speedup.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
+<!-- <h4>Joint European Torus (JET) Fusion Reactor</h4>
+<!-- <p>
+<!-- 
+<!-- <img src="html/projects/svd/files/jet_geom_source.png" alt="" height="50%" width="75%" class="center" style="padding:20px;" />
+<!-- <img  src="html/projects/svd/files/jet_adj_flux.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
+<!-- <img  src="html/projects/svd/files/jet_speedup.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
 
 
 
