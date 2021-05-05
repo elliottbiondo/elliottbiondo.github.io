@@ -292,7 +292,9 @@ approximating the nuclear transmutation process.
 			      <h3>Singular Value Decomposition (SVD) of Monte Carlo variance reduction parameters</h3>
                   <a href="https://doi.org/10.1016/j.anucene.2020.107327"> 2020 journal article</a>    <br><br>
 
+<!-- --------------------------------------------------------------------- -->
 <h4>SVD basics</h4>
+<!-- --------------------------------------------------------------------- -->
 
 <p>
 Singular Value Decomposition (SVD) is a matrix factorization method that has
@@ -341,7 +343,9 @@ been for a variety of scientific applicaitons including bioinformativs, signal
 processing, and nuclear reactor noise analysis.
 </p>
 
+<!-- --------------------------------------------------------------------- -->
 <h4>Application of SVD to radiation transport</h4>
+<!-- --------------------------------------------------------------------- -->
 <p>
 
 Monte Carlo (MC) radiation transport calculations are used to assess the safety
@@ -411,44 +415,37 @@ Both formulations were implemented and performance tested in the
 <a href="https://doi.org/10.1016/j.jcp.2015.12.037">Shift</a> Monte Carlo
 radiation transport code.
 
-<h4>Demonstration problem</h4>
+<!-- --------------------------------------------------------------------- -->
+<h4>Test problem</h4>
+<!-- --------------------------------------------------------------------- -->
 <p>
 
 <h4>UNDER CONSTRUCTION</h4>
 <p>
 
-
-The Westinghouse AP1000 is a Generation III+ nuclear reactor currently being
-constructed in the US and China. SVD compression of importance maps was tested
-for the excore dosimetry problem shown below.  This problem consists of a
-quarter-core model with reflecting boundaries, and a spherical neutron detector
-in the excore region, on the z-midplane. The image on the left shows a
-z-midplane slice of this geometry, with the detector shown in green. The image
-on the right shows the neutron source distribution from fisison. The objective
-of the problem is to transport particles from the fission source, through the
-shielding, to the detector.
+The Westinghouse AP1000 is a Generation III+ nuclear reactor design currently
+being constructed at several sites in in the US and China. SVD compression of
+importance maps was tested for the excore dosimetry problem shown below.  This
+problem consists of a quarter-core model with reflecting boundaries, and a
+spherical neutron detector in the excore region (i.e., the region outside the reactor core), on the $z$-midplane. The image
+on the left shows a $z$-midplane slice of this geometry, with the detector
+shown in green. The image on the right shows the neutron source distribution
+from fisison. The objective of the problem is to transport particles from the
+fission source, through excore sheilding, to the detector, which serves as a tally.
 
 <img src="html/projects/svd/files/ap1000_geom_source.png" alt="" height="75%" width="75%" class="center" style="padding:20px" />
 
 The Denovo 3D discrete ordainates (S$_N$) code used to obtain an adjoint flux
-distribution (importance map) 44 $\times$ 44 $\times$ 49 spatial mesh with 28
+distribution (importance map) on a 44 $\times$ 44 $\times$ 49 spatial mesh with 28
 energy groups. The contour plot below shows the adjoint flux for the
 1.4227–1.8268 MeV energy group (i.e., fission neutrons). This plot shows that
 fission neutrons experience more than 6 orders of magnitude of attenuation
-between the source and detectors.
+between the source and detectors, which indicates that VR will be necessary.
 
 <img  src="html/projects/svd/files/ap1000_adj_flux.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
 
-<img  src="html/projects/svd/files/ap1000_speedup.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
 
-
-<!-- <h4>Joint European Torus (JET) Fusion Reactor</h4>
-<!-- <p>
-<!-- 
-<!-- <img src="html/projects/svd/files/jet_geom_source.png" alt="" height="50%" width="75%" class="center" style="padding:20px;" />
-<!-- <img  src="html/projects/svd/files/jet_adj_flux.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
-<!-- <img  src="html/projects/svd/files/jet_speedup.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
-
+<img  src="html/projects/svd/files/ap1000_speedup.png" alt="" height="45%" width="50%" class="center" style="padding:20px;" />
 
 
                   <p/>
