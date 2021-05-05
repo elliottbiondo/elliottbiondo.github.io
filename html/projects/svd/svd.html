@@ -5,6 +5,16 @@
                   <a href="https://doi.org/10.1016/j.anucene.2020.107327"> 2020 journal article</a>    <br><br>
 
 <!-- --------------------------------------------------------------------- -->
+<h4>One-sentence summary</h4>
+<!-- --------------------------------------------------------------------- -->
+<p>
+
+The Singular Value Decomposition (SVD) matrix factorization technique is shown
+to reduce RAM requirements for radiation transport simulation parameters by an
+order of magnitude, demonstrated using a realistic nuclear reactor problem on
+the Summit supercomputer.
+
+<!-- --------------------------------------------------------------------- -->
 <h4>SVD basics</h4>
 <!-- --------------------------------------------------------------------- -->
 
@@ -21,20 +31,20 @@ $$
 where $\Sigma$ is a diagonal matrix. In this diagonal matrix, the entries
 decrease monotonically. As a result, an estimate of $A$ can be formed by
 truncating the $\mathbf{U}$, $\mathbf{\Sigma}$, and $\mathbf{V}$ matrices.
-Specifically, an estimate of the $a_{ij}$ entry in the $\mathbf{A}$ matrix is
+Specifically, an estimate of the $a_{ij}$ entry in the $\mathbf{A}$ matrix can be obtained via:
 
 $$
-a_{ij} \approx \sum_{k=1}^K u_{ik} \sigma_{kk} v_{jk}.
+a_{ij} \approx \sum_{k=1}^K u_{ik} \sigma_{kk} v_{jk},
 $$
 
-In other words, an estimate of the $\mathbf{A}$ matrix &mdash; referred to as a
-bill "reconstruction" &mdash; can be obtained by storing only the first $K$
-rows in $\mathbf{U}$, the first $K$ entries along the diagonal of
+with $1 < K < n$. In other words, an estimate of the $\mathbf{A}$ matrix &mdash;
+referred to as a bill "reconstruction" &mdash; can be obtained by storing only
+the first $K$ rows in $\mathbf{U}$, the first $K$ entries along the diagonal of
 $\mathbf{\Sigma}$, and the first $K$ columns in $\mathbf{V}$, which results in
-a factor of $M$ memory savings, where $M$ is given by
+a factor of $\Gamma$ memory savings, where $\Gamma$ is given by
 
 $$
-M = \frac{\text{memory with full rank}}{\text{memory with rank $k$}} 
+\Gamma = \frac{\text{memory with full rank}}{\text{memory with rank $k$}} 
   = \frac{mn}{mk + k + nk}.
 $$
 
@@ -123,8 +133,11 @@ $$
   \end{bmatrix}.
 $$
 
-Both formulations were implemented and performance tested in the 
-<a href="https://doi.org/10.1016/j.jcp.2015.12.037">Shift</a> Monte Carlo
+By storing the truncated SVDs of these $\mathbf{A}$ matricies, rather than the
+full matrices themselves, a signicant amount of RAM can be saved. Values of the
+adjoint flux can the be reconstructed on-the-fly (i.e., during a simulation).
+Both formulations were implemented and performance tested in the <a
+href="https://doi.org/10.1016/j.jcp.2015.12.037">Shift</a> Monte Carlo
 radiation transport code.
 
 <!-- --------------------------------------------------------------------- -->
@@ -132,18 +145,16 @@ radiation transport code.
 <!-- --------------------------------------------------------------------- -->
 <p>
 
-<h4>UNDER CONSTRUCTION</h4>
-<p>
-
 The Westinghouse AP1000 is a Generation III+ nuclear reactor design currently
 being constructed at several sites in in the US and China. SVD compression of
 importance maps was tested for the excore dosimetry problem shown below.  This
 problem consists of a quarter-core model with reflecting boundaries, and a
-spherical neutron detector in the excore region (i.e., the region outside the reactor core), on the $z$-midplane. The image
-on the left shows a $z$-midplane slice of this geometry, with the detector
-shown in green. The image on the right shows the neutron source distribution
-from fisison. The objective of the problem is to transport particles from the
-fission source, through excore sheilding, to the detector, which serves as a tally.
+spherical neutron detector in the excore region (i.e., the region outside the
+reactor core), on the $z$-midplane. The image on the left shows a $z$-midplane
+slice of this geometry, with the detector shown in green. The image on the
+right shows the neutron source distribution from fisison. The objective of the
+problem is to transport particles from the fission source, through excore
+sheilding, to the detector, which serves as a tally.
 
 <img src="html/projects/svd/files/ap1000_geom_source.png" alt="" height="75%" width="75%" class="center" style="padding:20px" />
 
@@ -156,8 +167,31 @@ between the source and detectors, which indicates that VR will be necessary.
 
 <img  src="html/projects/svd/files/ap1000_adj_flux.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
 
+Because 28 energy groups were used, the $\mathbf{A}$ matrix has an $n$ of 28.
+Shift was run using $K = [1, 28]$ with the SVD performed in both linear and log
+space. Ten independent trials were run for each $K$. Each trial was run on the
+<a href="https://www.olcf.ornl.gov/summit/">Summit supercomputer</a> on 264
+nodes with 7 processes per node (due to memory constraints).  The plot below
+shows the speedups and corresponding standard deviations for these trials, were
+the speedup is defined as the ratio of the convergence rate with VR, to the
+convergence rate without VR.
 
 <img  src="html/projects/svd/files/ap1000_speedup.png" alt="" height="45%" width="50%" class="center" style="padding:20px;" />
+
+This plot shows that two best options are 1) use a rank $K=1$ approximation
+with linear SVD, which provides a $\Gamma \approx 28$ while incurring a
+$\sim3\times$ performance penalty, or 2) Use a $K=2$ approximation with a log
+SVD, which only reduces the memory required to store the WWs by a factor of
+14.* The results show that taking the SVD of the adjoint flux is an effective
+method for reducing the memory requirements of importance maps without a
+significant sacrifice in performance. 
+
+<br>
+<br>
+<i>
+* Note for the nuclear engineering audience: this work using the CADIS method and these $\,\Gamma$ values refer only to weight windows. For the $K=1$ SVD in linear space, the biased source can also be compressed by a factor of 28, but for the $K=2$ SVD in log space, the biased source cannot be compressed. These detailed were ommited for brevity. A full explaination is found in the <a href="https://doi.org/10.1016/j.anucene.2020.107327">journal article</a> .
+</i>
+
 
 
                   <p/>
