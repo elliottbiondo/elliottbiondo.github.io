@@ -70,7 +70,7 @@ Monte Carlo (MC) radiation transport calculations are used to assess the safety
 and performance of nuclear reactors and other nuclear systems. The MC method uses
 a random walk technique to simulate the paths particles (i.e., neutrons or
 photons), take as they move through a nuclear system, from birth (via fission
-or an extermal source) to termination (through absorption reactions or by
+or an external source) to termination (through absorption reactions or by
 leaving the spatial boundaries of the system).
 Particle paths are recorded as they move through
 regions of interest, known as tallies. By simulating a large number of
@@ -155,7 +155,7 @@ sheilding (shown in burgundy), to the detector, which serves as a tally.
 
 <img src="html/projects/svd/files/ap1000_geom_source.png" alt="" height="75%" width="75%" class="center" style="padding:20px" />
 
-The Denovo 3D discrete ordainates (S$_N$) code was used to obtain an adjoint flux
+The Denovo 3D discrete ordinates (S$_N$) code was used to obtain an adjoint flux
 distribution (importance map) on a 44 $\times$ 44 $\times$ 49 spatial mesh with 28
 energy groups. The contour plot below shows the adjoint flux for the
 1.4227–1.8268 MeV energy group (i.e., fission neutrons). This plot shows that
@@ -178,7 +178,7 @@ convergence rate without VR.
 This plot shows that the two best options are 1) use a rank $K=1$ approximation
 with linear SVD, which provides a $\Gamma \approx 28*$ while incurring a
 $\sim3\times$ performance penalty, or 2) use a $K=2$ approximation with a log
-SVD, which provides a $\Gamma \approx 14$ with no performance penaulty.
+SVD, which provides a $\Gamma \approx 14$ with no performance penalty.
 The results show that taking the SVD of the adjoint flux is an effective
 method for reducing the memory requirements of importance maps without a
 significant sacrifice in performance. 
@@ -186,7 +186,7 @@ significant sacrifice in performance.
 <br>
 <br>
 <i>
-* Note for the nuclear engineering audience: this work using the CADIS method and these $\,\Gamma$ values refer only to weight windows. For the $K=1$ SVD in linear space, the biased source can also be compressed by a factor of 28, but for the $K=2$ SVD in log space, the biased source cannot be compressed. These detailed were ommited for brevity. A full explaination is found in the <a href="https://doi.org/10.1016/j.anucene.2020.107327">journal article</a> .
+* Note for the nuclear engineering audience: this work using the CADIS method and these $\,\Gamma$ values refer only to weight windows. For the $K=1$ SVD in linear space, the biased source can also be compressed by a factor of 28, but for the $K=2$ SVD in log space, the biased source cannot be compressed. These detailed were omitted for brevity. A full explanation is found in the <a href="https://doi.org/10.1016/j.anucene.2020.107327">journal article</a> .
 </i>
 
                   <p/>
