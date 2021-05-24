@@ -388,12 +388,13 @@ of RAM, which can limit the fidelity of the simulation that can be achieved.
 
 <p>
 
-SVD can be used to compress importance maps for reduced memory requirements. In
-the example above, the $\mathbf{A}$ matrix represents the two spatial
-dimensions of the waterfall image.  In this work, the 3 spatial dimensions of
-the importance maps are collapsed such that the 2 dimensions of the
-$\mathbf{A}$ matrix represent the spatial mesh cells and discrete energy groups
-of the adjoint flux. This allows an $A$ matrix to be formulated as:
+This work explores the novel application of SVD to compress importance maps for
+reduced memory requirements. In the example above, the $\mathbf{A}$ matrix
+represents the two spatial dimensions of the waterfall image. Here, the 3
+spatial dimensions of the importance maps are collapsed such that the 2
+dimensions of the $\mathbf{A}$ matrix represent the spatial mesh cells and
+discrete energy groups of the adjoint flux. This allows an $A$ matrix to be
+formulated as:
 
 $$   \mathbf{A}  =
   \begin{bmatrix}
