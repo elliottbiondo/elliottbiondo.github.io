@@ -1,0 +1,198 @@
+        <!-- ----------------------------------------------------------------------------------------------------------------- -->
+         <div id="modal-svd" class="popup-modal mfp-hide">
+		      <div class="description-box">
+			      <h3>Singular Value Decomposition (SVD) of Monte Carlo variance reduction parameters</h3>
+                  <a href="https://doi.org/10.1016/j.anucene.2020.107327"> 2020 journal article</a>    <br><br>
+
+<!-- --------------------------------------------------------------------- -->
+<h4>One-sentence summary</h4>
+<!-- --------------------------------------------------------------------- -->
+<p>
+
+The Singular Value Decomposition (SVD) matrix factorization technique is shown
+to reduce RAM requirements for radiation transport simulation parameters by an
+order of magnitude, as demonstrated on the Summit supercomputing with a
+realistic nuclear reactor problem.
+
+<!-- --------------------------------------------------------------------- -->
+<h4>SVD basics</h4>
+<!-- --------------------------------------------------------------------- -->
+
+<p>
+Singular Value Decomposition (SVD) is a matrix factorization technique that has
+applications in data compression and categorization problems.  For an $m \times
+n$ matrix $\mathbf{A}$ the SVD is
+
+$$
+\mathbf{A}_{m \times n} 
+= \mathbf{U}_{m \times m} \mathbf{\Sigma}_{m \times n} \mathbf{V}_{n \times n}^T,
+$$
+
+where $\Sigma$ is a diagonal matrix. In this diagonal matrix, the entries
+decrease monotonically. As a result, an estimate of $A$ can be formed by
+truncating the $\mathbf{U}$, $\mathbf{\Sigma}$, and $\mathbf{V}$ matrices.
+Specifically, an estimate of the $a_{ij}$ entry in the $\mathbf{A}$ matrix can be obtained via:
+
+$$
+a_{ij} \approx \sum_{k=1}^K u_{ik} \sigma_{kk} v_{jk},
+$$
+
+with $1 < K < n$. In other words, an estimate of the $\mathbf{A}$ matrix &mdash;
+referred to as a "reconstruction" &mdash; can be obtained by storing only
+the first $K$ rows in $\mathbf{U}$, the first $K$ entries along the diagonal of
+$\mathbf{\Sigma}$, and the first $K$ columns in $\mathbf{V}$, which results in
+a factor of $\Gamma$ memory savings, where $\Gamma$ is given by
+
+$$
+\Gamma = \frac{mn}{mK + K + nK}.
+$$
+
+For example, consider the following $1333 \times 1000$ pixel image of a cave
+waterfall in Jackson County, AL:
+
+<img  src="html/projects/svd/files/rank_full.png" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
+
+This image can be represented by a $1333 \times 1000$ matrix, where each entry represents a pixel with a gray-scale value between 0 and 1.
+Three reconstructions of this image are shown below.
+
+<img  src="html/projects/svd/files/three_ks.png" alt="" height="80%" width="80%" class="center" style="padding:20px;" />
+
+The $K=100$ reconstruction provides a fairly accurate representation of the
+image and requires $\Gamma=5.71$ times less memory.
+</p>
+
+<!-- --------------------------------------------------------------------- -->
+<h4>Application of SVD to radiation transport</h4>
+<!-- --------------------------------------------------------------------- -->
+<p>
+
+Monte Carlo (MC) radiation transport calculations are used to assess the safety
+and performance of nuclear reactors and other nuclear systems. The MC method uses
+a random walk technique to simulate the paths particles (i.e., neutrons or
+photons), take as they move through a nuclear system, from birth (via fission
+or an extermal source) to termination (through absorption reactions or by
+leaving the spatial boundaries of the system).
+Particle paths are recorded as they move through
+regions of interest, known as tallies. By simulating a large number of
+particles, statistical methods can be used to estimate radiological quantities
+such as particle flux, biological dose rate, and reactions rates within these
+tallies. 
+
+<p>
+
+One significant downside of MC radiation transport is that when tallies are located
+in regions of low particle flux (i.e., regions that few particles pass
+through), the convergence rates of tallies may be prohibitively slow. To
+address this problem most MC codes employ a class of biased random sampling
+techniques known as MC variance reduction (VR).  VR method allow the code to
+drastically increase the fraction of compute time spent simulating particles
+that are likely to reach the tally, without introducing systematic bias into
+the tally results.
+
+<p>
+
+Industry-standard VR methods require a low-order estimate of the adjoint flux
+distribution, which describes the "importance" of position/energy phase space
+regions to the final result. This information is supplied via "importance
+maps": 3D spatial meshes with each mesh cell tagged with
+energy-wise adjoint fluxes.  These important maps require a significant amount
+of RAM, which can limit the fidelity of the simulation that can be achieved.
+
+<p>
+
+SVD can be used to compress importance maps for reduced memory requirements. In
+the example above, the $\mathbf{A}$ matrix represents the two spatial
+dimensions of the waterfall image.  In this work, the 3 spatial dimensions of
+the importance maps are collapsed such that the 2 dimensions of the
+$\mathbf{A}$ matrix represent the spatial mesh cells and discrete energy groups
+of the adjoint flux. This allows an $A$ matrix to be formulated as:
+
+$$   \mathbf{A}  =
+  \begin{bmatrix}
+    \phi^{\dagger \, g = 0}_{c = 0} &  \phi^{\dagger \, g = 1}_{c = 0} & \dots &  \phi^{\dagger \, g = N_g - 1}_{c = 0} \\[0.3cm]
+    \phi^{\dagger \, g = 0}_{c = 1} &  \phi^{\dagger \, g = 1}_{c = 1} & \dots &  \phi^{\dagger \, g = N_g - 1}_{c = 1} \\[0.3cm]
+    \vdots & \vdots & \ddots & \vdots \\[0.3cm]
+    \phi^{\dagger \, g = 0}_{c = N_{c} - 1} &  \phi^{\dagger \, g = 1}_{c = N_{c} - 1} & \dots &  \phi^{\dagger \, g = N_g - 1}_{c = N_{c} - 1} \\[0.3cm]
+  \end{bmatrix},
+$$
+
+where $\phi^{\dagger}$ denotes the adjoint flux, $g$ denotes the energy group
+index, and $c$ denotes the spatial mesh cell index. Since adjoint flux distributions may
+vary by 10 orders of magnitude or more, and SVD in log-space was also considered, i.e.,
+
+$$
+   \mathbf{A}  =
+  \begin{bmatrix}
+    \log\left(\phi^{\dagger \, g = 0}_{c = 0}\right) &  \log\left(\phi^{\dagger \, g = 1}_{c = 0}\right) & \dots &  \log\left(\phi^{\dagger \, g = N_g - 1}_{c = 0}\right) \\[0.3cm]
+    \log\left(\phi^{\dagger \, g = 0}_{c = 1}\right) & \log\left(\phi^{\dagger \, g = 1}_{c = 1}\right) & \dots &  \log\left(\phi^{\dagger \, g = N_g - 1}_{c = 1}\right) \\[0.3cm]
+    \vdots & \vdots & \ddots & \vdots \\[0.3cm]
+    \log\left(\phi^{\dagger \, g = 0}_{c = N_{c} - 1}\right) & \log\left(\phi^{\dagger \, g = 1}_{c = N_{c} - 1}\right) & \dots & \log\left(\phi^{\dagger \, g = N_g - 1}_{c = N_{c} - 1}\right) \\[0.3cm]
+  \end{bmatrix}.
+$$
+
+By storing the truncated SVDs of these $\mathbf{A}$ matricies, rather than the
+full matrices themselves, a signicant amount of RAM can be saved. Values of the
+adjoint flux can then be reconstructed on-the-fly (i.e., during a simulation).
+Both formulations were implemented and performance tested in the <a
+href="https://doi.org/10.1016/j.jcp.2015.12.037">Shift</a> Monte Carlo
+radiation transport code.
+
+<!-- --------------------------------------------------------------------- -->
+<h4>Test problem</h4>
+<!-- --------------------------------------------------------------------- -->
+<p>
+
+The Westinghouse AP1000 is a Generation III+ nuclear reactor currently being
+constructed at several sites in in the US and China. SVD compression of
+importance maps was tested for the "excore dosimetry" problem shown below.
+This problem consists of a quarter-core model with reflecting boundaries, with
+a spherical neutron detector in the excore region (i.e., the region outside the
+reactor core), on the $z$-midplane. The image on the left shows a $z$-midplane
+slice of this geometry, with the detector shown in green. The image on the
+right shows the neutron source distribution from fisison. The objective of the
+problem is to transport particles from the fission source, through the
+sheilding (shown in burgundy), to the detector, which serves as a tally.
+
+<img src="html/projects/svd/files/ap1000_geom_source.png" alt="" height="75%" width="75%" class="center" style="padding:20px" />
+
+The Denovo 3D discrete ordainates (S$_N$) code was used to obtain an adjoint flux
+distribution (importance map) on a 44 $\times$ 44 $\times$ 49 spatial mesh with 28
+energy groups. The contour plot below shows the adjoint flux for the
+1.4227–1.8268 MeV energy group (i.e., fission neutrons). This plot shows that
+fission neutrons experience more than 6 orders of magnitude of attenuation
+between the source and detector, which indicates that VR will be necessary.
+
+<img  src="html/projects/svd/files/ap1000_adj_flux.png" alt="" height="50%" width="50%" class="center" style="padding:20px;" />
+
+Because 28 energy groups were used, the $\mathbf{A}$ matrix has an $n$ of 28.
+Shift was run using $K = [1, 28]$ with the SVD performed in both linear and log
+space. Ten independent trials were run for each $K$. Each trial was run on the
+<a href="https://www.olcf.ornl.gov/summit/">Summit supercomputer</a> on 264
+nodes with 7 processes per node (due to memory constraints).  The plot below
+shows the speedups and corresponding standard deviations for these trials, where
+the speedup is defined as the ratio of the convergence rate with VR, to the
+convergence rate without VR.
+
+<img  src="html/projects/svd/files/ap1000_speedup.png" alt="" height="45%" width="50%" class="center" style="padding:20px;" />
+
+This plot shows that the two best options are 1) use a rank $K=1$ approximation
+with linear SVD, which provides a $\Gamma \approx 28*$ while incurring a
+$\sim3\times$ performance penalty, or 2) use a $K=2$ approximation with a log
+SVD, which provides a $\Gamma \approx 14$ with no performance penalty.
+The results show that taking the SVD of the adjoint flux is an effective
+method for reducing the memory requirements of importance maps without a
+significant sacrifice in performance. 
+
+<br>
+<br>
+<i>
+* Note for the nuclear engineering audience: this work using the CADIS method and these $\,\Gamma$ values refer only to weight windows. For the $K=1$ SVD in linear space, the biased source can also be compressed by a factor of 28, but for the $K=2$ SVD in log space, the biased source cannot be compressed. These detailed were ommited for brevity. A full explaination is found in the <a href="https://doi.org/10.1016/j.anucene.2020.107327">journal article</a> .
+</i>
+
+                  <p/>
+		      </div>
+            <div class="link-box">
+		         <a class="popup-modal-dismiss">Close</a>
+            </div>
+	      </div><!-- modal-svd End -->
+          <!-- ----------------------------------------------------------------------------------------------------------------- -->

@@ -1,24 +1,28 @@
-import os
+# script for concatenating HTML files
 
-out = ""
 
-html_files = [
-"html/header.html",
-"html/projects/svd/svd.html",
-"html/projects/gtcadis/gtcadis.html",
-"html/projects/turbine/turbine.html",
-"html/projects/cuda/cuda.html",
-"html/projects/family_tree/family_tree.html",
-"html/publications.html",
-"html/footer.html"
-]
+def all_lines(html_file):
 
-for html_file in html_files:
     with open(html_file, 'r') as f:
-        for line in f.readlines():
-            out += line
+        return f.readlines()
+
+
+
+#projects = ["fges", "svd", "gtcadis", "turbine", "cuda", "family_tree"]
+projects = ["svd", "gtcadis", "turbine", "cuda", "family_tree"]
+
+out = all_lines("html/header.html")
+for proj in projects:
+    out += all_lines("html/projects/{0}/cover.html".format(proj))
+
+for proj in projects:
+    out += all_lines("html/projects/{0}/{0}.html".format(proj))
+
+out += all_lines("html/publications.html")
+out += all_lines("html/footer.html")
+
 
 with open("index.html", 'w') as f:
-    f.write(out)
+    f.write("".join(out))
 
 
