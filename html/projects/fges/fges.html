@@ -1,39 +1,87 @@
-        <!-- ----------------------------------------------------------------------------------------------------------------- -->
-         <div id="modal-fges" class="popup-modal mfp-hide">
-		      <div class="description-box">
-			      <h3>GPU-friendly algorithm for free gas elastic scattering</h3>
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+ <div id="modal-fges" class="popup-modal mfp-hide">
+      <div class="description-box">
+	      <h3>GPU-friendly algorithm for free gas elastic scattering</h3>
+          <p>
+            <a href="https://www.osti.gov/servlets/purl/1824991">2021 conference paper</a>     
+            <br>
+            <a href="html/projects/fges/files/biondo_free-gas_2021_pres.pdf">2021 conference presentation</a>     
+            <br>
+            <a href="https://youtu.be/WzarNkw52AE">YouTube video of presentation</a>     
+            <br><br>
 
 <!-- --------------------------------------------------------------------- -->
 <h4>One-sentence summary</h4>
 <!-- --------------------------------------------------------------------- -->
 <p>
 
-The Singular Value Decomposition (SVD) matrix factorization technique is shown
-to reduce RAM requirements for radiation transport simulation parameters by an
-order of magnitude, as demonstrated on the Summit supercomputing with a
-realistic nuclear reactor problem.
+A new algorithm has been developed for simulating the process of neutrons
+scaterring off of nuclei, in a way that is conducive to GPU execution.
 
-<!-- --------------------------------------------------------------------- -->
-<h4>GPU basics</h4>
-<!-- --------------------------------------------------------------------- -->
 
+
+<!-- COMMENT 
+
+
+<h4>Free gas elastic scattering basic</h4>
 <p>
 
-For an $m \times
-n$ matrix $\mathbf{A}$ the SVD is
+When simulating neutrons within a system such as a nuclear reactor, it is important to property account for the neutron scattering processes. 
+
+
+The probability density function describing the likelyhood at collision with
+energy $u_r$ occurs is:
 
 $$
-\mathbf{A}_{m \times n} 
-= \mathbf{U}_{m \times m} \mathbf{\Sigma}_{m \times n} \mathbf{V}_{n \times n}^T,
+f(u_r) = \left(                                                                  
+            e^{\frac{-(u_i - u_r)^2}{\xi^2}}                                     
+          - e^{\frac{-(u_i + u_r)^2}{\xi^2}}                                     
+        \right)                                                                  
+        u_r^2 \sigma(u_r)                                            
 $$
+
+
+where $\sigma(u_r)$ is the elastic scattering cross section at 0 K. The $\sigma(u_r)$ is has an extremely complex shape. 
+
+
+\begin{equation}\label{sym_antisym} \nonumber                                    
+\sigma(u) = \frac{1}{u^2} \sum_{k} \sum_{j}                                      
+          \left[                                                                 
+            h_{s, k, j}                                              
+                e^{\frac{-(u - u_k)^2}{w_{s, k, j}^2}}
+          + h_{a, k, j}                                              
+                (u - u_k) e^{\frac{-(u - u_k)^2}{w_{a, k, j}^2}}
+          \right]                                                                
+          + \frac{1}{u^2} \sum\limits_{n=0}^{N-1}                                
+                a_n \left( c_1(u - c_0)\right)^n                                 
+\end{equation}
+
+
+
+$$
+F(u_r)=                                                                          
+ \frac{1}{\xi \sqrt{\pi} u_i^2 \sigma_D(u_i, \xi)}                               
+\left[                                                                           
+    \sum\limits_k \sum\limits_j h_{s, k, j} I_s(u_r)                             
+    + \sum\limits_k \sum\limits_j h_{a, k, j} I_a(u_r)                           
+    + \sum\limits_{n} a_n I_{p, n}(u_r)                                          
+ \right]                                                                         
+$$
+
+
 
 <img  src="html/projects/fges/files/fges_square.png" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
 
 
-                  <p/>
-		      </div>
-            <div class="link-box">
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-	      </div><!-- modal-svd End -->
-          <!-- ----------------------------------------------------------------------------------------------------------------- -->
+<h4> Novel, rejection-free method for the GPU</h4>
+
+COMMENT -->
+
+
+         <p/>
+     </div>
+   <div class="link-box">
+        <a class="popup-modal-dismiss">Close</a>
+   </div>
+ </div><!-- modal-svd End -->
+ <!-- ----------------------------------------------------------------------------------------------------------------- -->

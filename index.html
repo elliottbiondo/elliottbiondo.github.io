@@ -177,10 +177,24 @@ approximating the nuclear transmutation process.
 
       <div class="row">
          <div class="twelve columns collapsed">
-            <h1>Professional works and side projects</h1>
+            <h1>Project Write-ups</h1>
             <!-- portfolio-wrapper -->
             <div id="portfolio-wrapper" class="bgrid-quarters s-bgrid-thirds cf">
 
+<div class="columns portfolio-item">                              
+   <div class="item-wrap">                                        
+      <a href="#modal-fges" title="">                             
+         <img alt="" src="html/projects/fges/files/fges_square.png">
+           <div class="overlay">                                  
+               </div>                                             
+            <div class="portfolio-item-meta">                     
+                   <h6>GPU-friendly algorithm for free gas flastic scattering</h6>
+               <h7>Theory</h7>                                    
+                </div>                                            
+         <div class="link-icon"><i class="icon-plus"></i></div>   
+      </a>                                                        
+   </div>                                                         
+</div>
 <div class="columns portfolio-item">                              
    <div class="item-wrap">                                        
       <a href="#modal-svd" title="">                              
@@ -209,20 +223,6 @@ approximating the nuclear transmutation process.
        </a>                                                           
     </div>                                                            
 </div> <!-- item end -->                                             
-<div class="columns portfolio-item">                              
-   <div class="item-wrap">                                        
-      <a href="#modal-turbine" title="">                          
-         <img alt="" src="html/projects/turbine/files/turbine_src_mesh_square.png">
-           <div class="overlay">                                  
-               </div>                                             
-            <div class="portfolio-item-meta">                     
-                   <h6>Tetrahedral mesh probability density functions</h6>
-               <h7>C++, Python</h7>                               
-                </div>                                            
-         <div class="link-icon"><i class="icon-plus"></i></div>   
-      </a>                                                        
-   </div>                                                         
-</div> <!-- item end -->
 <div class="columns portfolio-item">                                  
     <div class="item-wrap">                                           
        <a href="#modal-cuda" title="">                                
@@ -237,25 +237,98 @@ approximating the nuclear transmutation process.
        </a>                                                           
     </div>                                                            
 </div> <!-- item end -->
-<div class="columns portfolio-item">                                  
-    <div class="item-wrap">                                           
-       <a href="#modal-fam" title="">                                 
-          <img alt="" src="html/projects/family_tree/files/fam.png">  
-               <div class="overlay">                                  
-                   </div>                                             
-             <div class="portfolio-item-meta">                        
-                   <h6>Herald: a Python tool for automatically generating family trees</h6>
-                <h7>Python, side project</h7>                         
-                </div>                                                
-          <div class="link-icon"><i class="icon-plus"></i></div>      
-       </a>                                                           
-    </div>                                                            
-</div> <!-- item end -->
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+ <div id="modal-fges" class="popup-modal mfp-hide">
+      <div class="description-box">
+	      <h3>GPU-friendly algorithm for free gas elastic scattering</h3>
+          <p>
+            <a href="https://www.osti.gov/servlets/purl/1824991">2021 conference paper</a>     
+            <br>
+            <a href="html/projects/fges/files/biondo_free-gas_2021_pres.pdf">2021 conference presentation</a>     
+            <br>
+            <a href="https://youtu.be/WzarNkw52AE">YouTube video of presentation</a>     
+            <br><br>
+
+<!-- --------------------------------------------------------------------- -->
+<h4>One-sentence summary</h4>
+<!-- --------------------------------------------------------------------- -->
+<p>
+
+A new algorithm has been developed for simulating the process of neutrons
+scaterring off of nuclei, in a way that is conducive to GPU execution.
+
+
+
+<!-- COMMENT 
+
+
+<h4>Free gas elastic scattering basic</h4>
+<p>
+
+When simulating neutrons within a system such as a nuclear reactor, it is important to property account for the neutron scattering processes. 
+
+
+The probability density function describing the likelyhood at collision with
+energy $u_r$ occurs is:
+
+$$
+f(u_r) = \left(                                                                  
+            e^{\frac{-(u_i - u_r)^2}{\xi^2}}                                     
+          - e^{\frac{-(u_i + u_r)^2}{\xi^2}}                                     
+        \right)                                                                  
+        u_r^2 \sigma(u_r)                                            
+$$
+
+
+where $\sigma(u_r)$ is the elastic scattering cross section at 0 K. The $\sigma(u_r)$ is has an extremely complex shape. 
+
+
+\begin{equation}\label{sym_antisym} \nonumber                                    
+\sigma(u) = \frac{1}{u^2} \sum_{k} \sum_{j}                                      
+          \left[                                                                 
+            h_{s, k, j}                                              
+                e^{\frac{-(u - u_k)^2}{w_{s, k, j}^2}}
+          + h_{a, k, j}                                              
+                (u - u_k) e^{\frac{-(u - u_k)^2}{w_{a, k, j}^2}}
+          \right]                                                                
+          + \frac{1}{u^2} \sum\limits_{n=0}^{N-1}                                
+                a_n \left( c_1(u - c_0)\right)^n                                 
+\end{equation}
+
+
+
+$$
+F(u_r)=                                                                          
+ \frac{1}{\xi \sqrt{\pi} u_i^2 \sigma_D(u_i, \xi)}                               
+\left[                                                                           
+    \sum\limits_k \sum\limits_j h_{s, k, j} I_s(u_r)                             
+    + \sum\limits_k \sum\limits_j h_{a, k, j} I_a(u_r)                           
+    + \sum\limits_{n} a_n I_{p, n}(u_r)                                          
+ \right]                                                                         
+$$
+
+
+
+<img  src="html/projects/fges/files/fges_square.png" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
+
+
+<h4> Novel, rejection-free method for the GPU</h4>
+
+COMMENT -->
+
+
+         <p/>
+     </div>
+   <div class="link-box">
+        <a class="popup-modal-dismiss">Close</a>
+   </div>
+ </div><!-- modal-svd End -->
+ <!-- ----------------------------------------------------------------------------------------------------------------- -->
         <!-- ----------------------------------------------------------------------------------------------------------------- -->
          <div id="modal-svd" class="popup-modal mfp-hide">
 		      <div class="description-box">
 			      <h3>Singular Value Decomposition (SVD) of Monte Carlo variance reduction parameters</h3>
-                  <a href="https://doi.org/10.1016/j.anucene.2020.107327"> 2020 journal article</a>    <br><br>
+                  <a href="https://www.osti.gov/servlets/purl/1606986"> 2020 journal article</a>    <br><br>
 
 <!-- --------------------------------------------------------------------- -->
 <h4>One-sentence summary</h4>
@@ -610,90 +683,6 @@ calculating these photon dose rates.
           <!-- ----------------------------------------------------------------------------------------------------------------- -->
 
          <!-- ----------------------------------------------------------------------------------------------------------------- -->
-         <div id="modal-turbine" class="popup-modal mfp-hide">
-		      <div class="description-box">
-			      <h4>Tetrahedral mesh probability density functions</h4>
-			      <p>
-                    <a href="https://github.com/pyne/pyne/blob/develop/src/source_sampling.cpp">C++ source</a> 
-                    <br>
-                    <a href="https://github.com/pyne/pyne/blob/develop/tests/test_source_sampling.py">Unit tests (via Python wrapper)</a>
-                    <br>
-                    <a href="http://pyne.io/theorymanual/source_sampling.html">Theory, sample calculations to match unit tests</a>
-                    <br>
-                    <a href="http://pyne.io/usersguide/source_sampling.html">User's guide</a>
-                    <br><br>
-
-Nuclear systems analysis often involves using the Monte Carlo approach to
-simulate the paths that particles (i.e. neutrons and high-energy photons) take
-after they are emitted from a source. This source may be a reactor core,
-particle accelerator, or a radioactive seed used in radiation oncology. When
-using the Monte Carlo approach, the source must be represented as a probability
-density function (PDF) that typically varies as a function of position and
-energy (i.e. energy of the emitted particle).  With-industry standard Monte
-Carlo radiation transport codes such as <a
-href="https://mcnp.lanl.gov/mcnp5.shtml">MCNP5</a>, users must specify these
-PDFs through the combination of rudimentary 1-dimensional PDFs such has
-histogram, linear, and point-wise distributions.  There are many cases when the
-PDF is too complex for this method to be practical, such as cases where
-particles are emitted from nuclear fusion plasmas or irradiated structural
-materials.
-
-<br><br>
-
-I have added code to the <a href="https://github.com/pyne/pyne">Python for
-Nuclear Engineering</a> toolkit for the creation of energy-dependent Cartesian-
-or tetrahedral mesh-based PDFs. These PDF can be sampling using unbiased and
-biased sampling techniques that allow for the use of Monte Carlo variance
-reduction. Sampling is done using the <a
-href="http://ieeexplore.ieee.org/document/4245054/?reload=true">Alias
-method</a>, which allows for O(1) scaling with respect to the number of
-discrete bins in the PDF. My code is written in C++ and also has Python and
-Fortran interfaces and can be compiled directly into existing Monte Carlo codes.
-More information can be found in the links at the top of this page.
-
-<br><br>
-
-Here's a quick demonstration of how this code can be used to create extremely
-complex particle sources.  Consider this CAD model of a turbine rotor I found on
-<a href="https://grabcad.com/">GrabCAD</a>. 
-
-<img  src="html/projects/turbine/files/turbine_cad.png" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
-
-I created a conformal tetrahedral mesh of this model using <a
-href="https://cubit.sandia.gov/">CUBIT</a>. I then iterated through tetrahedral
-elements of the mesh and assigned a source strength to each element based on the
-$x$, $y$, $z$ coordinates of the center of the element using this equation:
-
-
-$$q(x, y, z) = sin\left(\frac{x^2 + y^2 + (z + 10)^2}{1200}\right) + 1.$$
-
-This equation does not have any physical significance, but it serves as a good
-example because it would not be possible to represent using industry-standard
-Monte Carlo codes. The resulting particle source PDF is shown below.
-
-<img  src="html/projects/turbine/files/turbine_src_mesh.png" alt="" height="38%" width="38%" class="center" style="padding:20px;"/>
-
-I compiled my C++ routine directly into MCNP via the Fortran interface I
-created. I was then able to use the PDF shown above as a particle source for a
-photon transport simulation. Below is an image showing the photon flux
-distribution.
-
-<img  src="html/projects/turbine/files/turbine_flux.png" alt="" height="45%" width="45%" class="center" style="padding:20px;"/>
-
-Although this example was just for fun, I have used this code as a component of
-a software system I created for estimating biological dose rates for nuclear
-fusion reactors problems <a href="https://doi.org/10.1016/j.fusengdes.2016.03.004">[2016
-journal article]</a>. 
-
-
-                  <p/>
-		      </div>
-            <div class="link-box">
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-	      </div><!-- modal-turbine End -->
-          <!-- ----------------------------------------------------------------------------------------------------------------- -->
-         <!-- ----------------------------------------------------------------------------------------------------------------- -->
          <div id="modal-cuda" class="popup-modal mfp-hide">
 		      <div class="description-box">
 			      <h4>GPU-parallelized matrix LU decomposition with CUDA</h4>
@@ -792,65 +781,6 @@ This plot shows that my CUDA implementation is marginally faster than MKL over a
             </div>
 	      </div><!-- modal-cuda End -->
          <!-- ----------------------------------------------------------------------------------------------------------------- -->
-<!-- ----------------------------------------------------------------------------------------------------------------- -->
-         <div id="modal-fam" class="popup-modal mfp-hide">
-		      <div class="description-box">
-			      <h4>Herald: a Python tool for automatically generating family trees</h4>
-			      <p>
-                    <a href="https://github.com/elliottbiondo/herald">Python source</a> 
-                    <br><br>
-
-I have been researching my genealogy as a hobby for the past 5 years or so.
-I've accrued information on hundreds of direct ancestors going back as far as
-William the Conqueror (c. 1028 - 1087). There are tons of genealogy tools out
-there, but none of them were entirely satisfactory to me. In the throes of
-writing my dissertation I needed a fun coding project, so I threw this together
-in a few Sunday mornings. This project, which I call Herald, is written in
-Python. Herald reads text-based input files and creates
-PDF output files via SVG.  This is an ongoing project, so right now only direct
-decent is supported (i.e.  parent, grand-parent, ...,
-[$N\times$great]-grand-parent).
-
-I came up with a very simple recursive algorithm for generating the tree (which
-is a balanced binary tree in the graph-theory sense). 
-
-</p>
-<pre><code>
-<number>1</number>     <em>function</em> <var>assign_index</var>(Person person, string index)
-<number>2</number>         person.set_index(index)
-<number>3</number>     
-<number>4</number>             <em>if</em> person.mother():
-<number>5</number>                 <var>assign_index</var>(person.mother(), person.index() +'1')
-<number>6</number>             <em>end if</em>
-<number>7</number>     
-<number>8</number>             <em>if</em> person.father():
-<number>9</number>                 <var>assign_index</var>(person.father, person.index() + '0')
-<number>10</number>            <em>end if</em>
-<number>11</number>    
-<number>12</number>    <em>end function</em>
-</code></pre>
-<p>
-
-This function is called from the root of the tree (e.g. the person whose
-ancestors you'd like to plot). Each person in the tree is assigned an index
-string. The length of the string is the generation they belongs to. For
-example, <code>'010'</code> denotes the father's mother's father
-(great-grandfather) of the root person. The generation that this person belong
-to is <code><em>len</em>('101') = 3</code>. In typical family trees, the
-left-most branch is the paternal line (i.e. '0000...0') and the right-most
-branch is the maternal line (i.e. '1111...1'). When printing a family tree,
-members of a given generation can be sorted from left to right by simply
-converting index values to binary (e.g. <code>'1101' = 13</code>) and sorting
-using the decimal representation. A portion of my family tree is shown below.  
-
-<img  src="html/projects/family_tree/files/fam.png" alt="" height="70%" width="70%" class="center" style="padding:20px;"/>
-
-                  <p/>
-		      </div>
-            <div class="link-box">
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-	      </div><!-- modal-fam End -->
       </div> <!-- row End --> 
    </section> <!-- Portfolio Section End-->
 
