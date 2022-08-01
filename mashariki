@@ -1,0 +1,66 @@
+
+One Sentence summary
+
+
+Introduction
+
+I started learning Swahili during the COVID-19 epidemic. I began on the
+Duolingo app, but eventually got frustrated by how repetitive it became.  As
+one would expect from a typical flashcard application, the questions and
+corresponding answers appeared to be hard-coded, which meant translating "the
+boy drinks milk" over and over again. Eventually I learned that although
+Swahili grammer has a lot of rules, there are few exceptions, so I set up to
+develop and application that encodes Swahili language rules in order to
+automatically generate quiz questions.
+
+Theory
+
+Swahili is an "agglutinative" langauge, meaning that words can be constructed from a colleciton of syntactially indistinct components called "morphemes". This is best illustrated by example. Consider the Swahili sentence.
+
+"Matunda hayatauzwa" which means "the fruits have not been sold"
+
+The sentence can be split into its constituant mophemes like so:
+
+Ma - tunda  ha-ya-ja-uz-wa 
+
+Plurality,  noun root,      negation, subject, tense, verb root, passive voice
+
+Each one of these morphenes serves as distanct purpose, and cannot stand alone.
+For example, "ja" on its own has no meaning in the same way that "tion" has no
+mean in English outside the context of a word like "education". These
+morphemes are also loosely coupled. For example, plurality and subject
+morphemes are tied to the properties of the noun root, and the tense morpheme
+is coupled to the negation morpheme. The plurality and subject morphemes are
+the most complex, because they much agree with the "noun class" of the noun. In
+Swahili nouns are grouped into classes that determine how they interact with
+other parts of speech. This concept is analogous to grammatical gender, encountered in
+Romances langauges, for example. Whereas Spanish and Latin have 2 and 3 grammatic genders,
+respectively, Swahili has 10, many of which having distinct singular and plural
+forms.
+
+The basic idea of Mashariki is to randomly generate sentences by sampling
+morphemes in a fashion the respects the aforemented coupling rules.
+
+
+Backend
+-------
+
+The English langauge dependency 
+
+Read files from disk that contain information about nouns and verbs
+
+A single Swahili word can have multiple Swahili translation
+
+Noun and Verb classes, Noun Components Object
+
+Challenge abstract base class can be subclassed to create challenges
+
+
+Frontend
+--------
+
+The fronted is done is Django
+
+Cookies
+
+
