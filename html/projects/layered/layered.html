@@ -3,9 +3,9 @@
       <div class="description-box">
 	      <h3>Ray tracing combined CSG/CAD computational geometries</h3>
           <p>
-            <a href="https://www.osti.gov/biblio/1881140">2022 conference paper</a>     
+            <a href="https://www.sciencedirect.com/science/article/pii/S0306454922005990?dgcid=author">2023 journal article</a>     
             <br>
-            <a href="html/projects/layered/files/poster.pdf">2022 conference poster</a>     
+            <a href="https://www.osti.gov/biblio/1881140">2022 conference paper</a>     
             <br><br>
 
 <!-- --------------------------------------------------------------------- -->
@@ -14,17 +14,80 @@
 <p>
 
 The Shift Monte Carlo radiation transport code was modified to support
-computational geoemtries specified using a combination of Constructive Solid
+computational geoemtries specified using an arbitrary combination of Constructive Solid
 Geometry (CSG) and Computer-Aided Design (CAD) models.
 
 <!-- --------------------------------------------------------------------- -->
-<h4>Example</h4>
+<h4>Computational Geometries</h4>
 <!-- --------------------------------------------------------------------- -->
 <p>
 
+Monte Carlo (MC) radiation transport calculations are used to assess the safety
+and performance of nuclear reactors and other nuclear systems. The MC method
+uses a random walk technique to simulate the paths that particles (i.e., neutrons
+and/or photons) take as they move through a computational geometry
+representating the system. By simulating a large number of particles,
+statistical methods can be used to estimate radiological quantities such as
+particle flux, biological dose rate, and the neutron multiplication factor
+(which determines if a reactor is subcritical, critical, or supercritical).
+
+<p>
+
+MC codes track of positions and directions of particles within a computational
+geometry using <a href="https://developer.nvidia.com/discover/ray-tracing">ray
+tracing</a>, the same algorithm for rendering 3D graphics. The implementation
+of the ray tracing algorithm depends on how the computational geometry is
+specificed.  
+
+
+Historically, MC codes have supported computational geometries
+specified in Combinatorial Solid Geometry (CSG) formats. With CSG, the boundaries of geometry cells are specified 
+
+
+
+
+geometric primitives (e.g., planes, cuboids, and spheres) in a text-based
+format. These primatives can be combined to form more complex shapes.
+
+
+
+In
+addition, support for Computer-Aided Design (CAD) computational geometries has
+been added more recently to most production-level MC codes. The most commonly
+used CAD-based format used for radiation transport is triangular surface mesh
+describing the boundaries
+
+
+In practice 
+
+<img  src="html/projects/layered/files/csg.png" alt="" height="45%" width="45%" class="center" style="padding:20px;"/>
+<img  src="html/projects/layered/files/cad.png" alt="" height="85%" width="85%" class="center" style="padding:20px;"/>
+
+
+
+
+
+<!-- --------------------------------------------------------------------- -->
+<h4>Layered Geometry</h4>
+<!-- --------------------------------------------------------------------- -->
+<p>
+
+A new "layered" geometry type has been implemented in the Shift MC radiation transport code. Layered geometry combines 
+
+
+<img  src="html/projects/layered/files/layered_construction.png" alt="" height="90%" width="90%" class="center" style="padding:20px;"/>
+
+
+<!-- --------------------------------------------------------------------- -->
+<h4>Demonstration</h4>
+<!-- --------------------------------------------------------------------- -->
+<p>
 
 <img  src="html/projects/layered/files/tcr.png" alt="" height="90%" width="90%" class="center" style="padding:20px;"/>
 
+<img  src="html/projects/layered/files/tcr_results.png" alt="" height="90%" width="90%" class="center" style="padding:20px;"/>
+
+ <!-- ----------------------------------------------------------------------------------------------------------------- -->
          <p/>
      </div>
    <div class="link-box">
