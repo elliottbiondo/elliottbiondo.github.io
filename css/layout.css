@@ -546,6 +546,12 @@ font-weight: normal;
    margin-bottom: 12px;
 }
 
+.popup-modal .description-box ol {
+	font: 14px/24px 'opensans-regular', sans-serif;
+   color: #000000;
+   margin-bottom: 12px;
+}
+
 .popup-modal .description-box pre {
    font: 14px/16px 'opensans-regular', sans-serif;
    color: #0000AF;

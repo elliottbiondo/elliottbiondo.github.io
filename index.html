@@ -234,28 +234,14 @@ approximating the nuclear transmutation process.
        </a>                                                           
     </div>                                                            
 </div> <!-- item end -->                                             
-<div class="columns portfolio-item">                                  
-    <div class="item-wrap">                                           
-       <a href="#modal-cuda" title="">                                
-          <img alt="" src="html/projects/cuda/files/matrix_square.png">
-               <div class="overlay">                                  
-                   </div>                                             
-             <div class="portfolio-item-meta">                        
-                   <h6>GPU-parallelized matrix LU decomposition with CUDA</h6>
-                <h7>C++, CUDA, coursework</h7>                        
-         </div>                                                       
-          <div class="link-icon"><i class="icon-plus"></i></div>      
-       </a>                                                           
-    </div>                                                            
-</div> <!-- item end -->
 <!-- ----------------------------------------------------------------------------------------------------------------- -->
  <div id="modal-layered" class="popup-modal mfp-hide">
       <div class="description-box">
 	      <h3>Ray tracing combined CSG/CAD computational geometries</h3>
           <p>
-            <a href="https://www.osti.gov/biblio/1881140">2022 conference paper</a>     
+            <a href="https://www.sciencedirect.com/science/article/pii/S0306454922005990?dgcid=author">2023 journal article</a>     
             <br>
-            <a href="html/projects/layered/files/poster.pdf">2022 conference poster</a>     
+            <a href="https://www.osti.gov/biblio/1881140">2022 conference paper</a>     
             <br><br>
 
 <!-- --------------------------------------------------------------------- -->
@@ -264,17 +250,77 @@ approximating the nuclear transmutation process.
 <p>
 
 The Shift Monte Carlo radiation transport code was modified to support
-computational geoemtries specified using a combination of Constructive Solid
+computational geometries specified using an arbitrary combination of Constructive Solid
 Geometry (CSG) and Computer-Aided Design (CAD) models.
 
 <!-- --------------------------------------------------------------------- -->
-<h4>Example</h4>
+<h4>Computational Geometries</h4>
 <!-- --------------------------------------------------------------------- -->
 <p>
 
+Monte Carlo (MC) radiation transport simulations are used to assess the safety
+and performance of nuclear reactors and other nuclear systems.  This method
+involves simulating the paths of particles (i.e., neutrons and/or photons) as
+they move through a nuclear system. By simulating a large number of
+particles, statistical methods can be used to estimate radiological quantites
+such as particle flux, biological dose rate, and the neutron multiplication
+factor (which determines if a reactor is subcritical, critical, or
+supercritical).
+
+<p>
+
+MC codes track the movement of particles within a computational geometry using
+<a href="https://developer.nvidia.com/discover/ray-tracing">ray tracing</a>,
+the same algorithm used for rendering 3D graphics. The implementation of the ray
+tracing algorithm depends on how the computational geometry is specificed.
+Production-level MC codes typically have ray tracing routines that operate on
+models specified in the following formats:
+
+<ol type="1">
+<li>Combinatorial Solid Geometry (CSG): geometry cells are specified by combining geometric primitives (e.g., planes,
+cuboids, and spheres) using Boolean logic operations, in a text-based format.</li>
+<li>Computer-Aided Design (CAD): the boundaries of geometry cells are specified using surface meshes with triangular elements.</li>
+</ol>
+
+<p>
+
+There are significant human effort and performance trade-offs between these formats, and as a result, both are widely used.
+However, it can be extremely tedious and time-consuming to combine models in
+different formats.
+
+
+<!-- --------------------------------------------------------------------- -->
+<h4>Layered Geometry</h4>
+<!-- --------------------------------------------------------------------- -->
+<p>
+
+Shift is a production-level MC code developed at Oak Ridge National Laboratory
+designed to scale from laptops to supercomputers.  A new "layered" geometry
+type has been implemented in the Shift MC radiation transport code. With
+layered geometry, CAD and CSG models can be arbitrarily translated, rotated,
+clipped, and placed in overlapping layers, as seen in the example below.  New
+ray tracing routines have been added to Shift in order to track particles
+within layered geometries. This drastically reduces the human effort required
+to combine models in multiple formats.
+
+<img  src="html/projects/layered/files/layered_construction.png" alt="" height="90%" width="90%" class="center" style="padding:20px;"/>
+
+
+<!-- --------------------------------------------------------------------- -->
+<h4>Demonstration</h4>
+<!-- --------------------------------------------------------------------- -->
+<p>
+
+The layered geometry feature within the Shift MC code was demonstrated with a 
+<a href="https://tcr.ornl.gov/">Transformational Challenge Reactor (TCR)</a> problem. As seen in the diagram below, a layered geometry was created by overlaying complex CAD models of fuel and reflector elements over a CSG core model to form a transport-ready geometry.
 
 <img  src="html/projects/layered/files/tcr.png" alt="" height="90%" width="90%" class="center" style="padding:20px;"/>
 
+A <i>k</i>-eigenvalue calculation was carried out on this layered geometry. The converged neutron source and neutron flux distributions appear below.
+
+<img  src="html/projects/layered/files/tcr_results.png" alt="" height="90%" width="90%" class="center" style="padding:20px;"/>
+
+ <!-- ----------------------------------------------------------------------------------------------------------------- -->
          <p/>
      </div>
    <div class="link-box">
@@ -382,7 +428,7 @@ COMMENT -->
 
 The Singular Value Decomposition (SVD) matrix factorization technique is shown
 to reduce RAM requirements for radiation transport simulation parameters by an
-order of magnitude, as demonstrated on the Summit supercomputing with a
+order of magnitude, as demonstrated on the Summit supercomputer with a
 realistic nuclear reactor problem.
 
 <!-- --------------------------------------------------------------------- -->
@@ -439,8 +485,8 @@ image and requires $\Gamma=5.71$ times less memory.
 
 Monte Carlo (MC) radiation transport calculations are used to assess the safety
 and performance of nuclear reactors and other nuclear systems. The MC method uses
-a random walk technique to simulate the paths particles (i.e., neutrons or
-photons), take as they move through a nuclear system, from birth (via fission
+a random walk technique to simulate the paths particles (i.e., neutrons and/or
+photons) take as they move through a nuclear system, from birth (via fission
 or an external source) to termination (through absorption reactions or by
 leaving the spatial boundaries of the system).
 Particle paths are recorded as they move through
@@ -573,8 +619,8 @@ significant sacrifice in performance.
 		      <div class="description-box">
 			      <h3>Optimizing gamma dose rate calculations for nuclear fusion shielding</h3>
 			      <p>
-                    <a href="html/projects/gtcadis/files/biondo_dissertation_2016.pdf">Dissertation</a> <br>
-                    <a href="https://doi.org/10.1080/00295639.2016.1275848"> 2017 journal article</a>    <br><br>
+                    <a href="https://doi.org/10.1080/00295639.2016.1275848"> 2017 journal article</a><br>
+                    <a href="html/projects/gtcadis/files/biondo_dissertation_2016.pdf">2016 dissertation</a> <br><br>
 
 </p><h4>One-sentence summary</h4><p>
 
@@ -727,105 +773,6 @@ calculating these photon dose rates.
 	      </div><!-- modal-gtcadis End -->
           <!-- ----------------------------------------------------------------------------------------------------------------- -->
 
-         <!-- ----------------------------------------------------------------------------------------------------------------- -->
-         <div id="modal-cuda" class="popup-modal mfp-hide">
-		      <div class="description-box">
-			      <h4>GPU-parallelized matrix LU decomposition with CUDA</h4>
-			      <p>
-                    <a href="https://github.com/elliottbiondo/ME759_final_project">C++ source</a> 
-                    <br>
-                    <a href="html/projects/cuda/files/report.pdf">Report</a> 
-                    <br><br>
-
-In grad school, one of my favorite courses was <a
-href="http://sbel.wisc.edu/Courses/ME964/">ME759: High-Performance Computing
-for Applications in Engineering</a>. The primary focus of this course was GPU
-computing with CUDA, though we spent some time with MPI and OpenMP as well.
-For my final project, I wrote a program to solve a system of linear equations
-on the GPU. The problem I solved takes the form 
-
-$$ A_{n \times n} x_{n \times m} = b_{n \times m} $$
-
-where $A$ is a diagonally-dominant banded matrix with some bandwidth $k$.
-Problems of this form may arise when using numerical methods to solve ordinary
-and partial differential equations. This equation can be solved in 3 steps: LU
-decomposition, forward substitution, and backward substitution.  For brevity,
-I'll only discuss the first step here. More details can be found in the links at
-the top of this page.  LU decomposition decomposes the $A$ matrix into lower-
-and upper-triangular matrices $L$ and $U$:
-
-$$ A = LU. $$
-
-The algorithm I chose for performing this decomposition is shown below.
-
-</p>
-<div>
-<pre><code>
-<number>1</number>    <em>for</em> i = 0 to n−2
-<number>2</number>    
-<number>3</number>        <em>for</em> j = i+1 to n−1
-<number>4</number>            A[j, i] = A[j, i]/A[i,i]
-<number>5</number>        <em>end for</em>
-<number>6</number>    
-<number>7</number>        <em>for</em> j = i+1 to n−1
-<number>8</number>            <em>for</em> k = i+1 to n−1
-<number>9</number>                A[j, k] = A[j , k] − A[j, i]∗A[i, k]
-<number>10</number>           <em>end for</em>
-<number>11</number>       <em>end for</em>
-<number>12</number>   
-<number>13</number>   <em>end for</em>
-</code></pre>
-</div>
-<p>
-
-This algorithm operates on the matrix in-place, such that resultant $L$ and $U$
-matrices are produced within the lower and upper triangular portion of the
-original $A$ matrix, which helps to minimize memory usage.
-
-<br><br>
-
-I adapted this algorithm to run efficiently on the GPU using CUDA.  This
-algorithm requires synchronization after the for-loop on line 3 and the set of
-for-loops beginning on line 7. Though CUDA can impose synchronization between
-threads within a block, there is no notion of block synchronization. As a
-result, the outermost for-loop must occur on the CPU, and this for-loop must
-call 2 separate CUDA kernels: one for the line 3 for-loop and one for the line
-7 for-loops. The line 7 for-loops offered the best potential for
-parallelization.  No synchronization is required over $j$ or $k$, so large
-portions of the $A$ matrix can be operated on by different threads
-simultaneously. This is illustrated in the following diagram. The rectangles
-represent the active region of the matrix for a given kernel call where the
-order of kernel calls goes from light to dark.  Within each rectangle,
-execution is divided into blocks, and threads within these blocks perform the
-operation appearing on line 9 simultaneously.
-
-<img  src="html/projects/cuda/files/matrix.png" alt="" height="30%" width="30%" class="center" style="padding:20px;"/>
-
-Further memory usage reductions were achieved by using the <a
-href="http://www.netlib.org/lapack/lug/node124.html">band storage</a>
-technique. This technique only stores the values within the band of the matrix. As a result, the active region of the matrix in my implementation proceeds according to the following diagram.
-
-<img  src="html/projects/cuda/files/band_matrix.png" alt="" height="23%" width="23%" class="center" style="padding:20px;"/>
-
-The aforementioned forward and backward substitution steps were also
-implemented. The performance of the program was compared to the <a
-href="https://software.intel.com/en-us/mkl">Intel Math Kernel Library (MKL)</a>
-on the CPU.  The following plot shows the execution time necessarily to solve a
-linear system with an $A$ matrix of size $n$, with bandwidths $k$ that are 10%,
-50% and 90% of $n$. The results of this plot are for the case where $m=1$, but
-scaling analysis was done over $m$ as well.
-
-<img  src="html/projects/cuda/files/cuda_results.png" alt="" height="50%" width="50%" class="center" style="padding:20px;"/>
-
-This plot shows that my CUDA implementation is marginally faster than MKL over a range of matrix dimensions and bandwidths.
-
-                  <p/>
-		      </div>
-            <div class="link-box">
-		         <a class="popup-modal-dismiss">Close</a>
-            </div>
-	      </div><!-- modal-cuda End -->
-         <!-- ----------------------------------------------------------------------------------------------------------------- -->
       </div> <!-- row End --> 
    </section> <!-- Portfolio Section End-->
 

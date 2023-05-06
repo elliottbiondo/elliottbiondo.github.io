@@ -8,7 +8,7 @@ def all_lines(html_file):
 
 
 #projects = ["fges", "svd", "gtcadis", "turbine", "cuda", "family_tree"]
-projects = ["layered", "fges", "svd", "gtcadis", "cuda"]
+projects = ["layered", "fges", "svd", "gtcadis"]
 
 out = all_lines("html/header.html")
 for proj in projects:
