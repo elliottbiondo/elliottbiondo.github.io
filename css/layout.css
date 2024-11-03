@@ -1012,3 +1012,22 @@ footer .social-links li:first-child { margin-left: 0; }
    font: 12px/12px 'opensans', sans-serif;
    color: #000;
 }
+
+
+
+
+.publication-item {
+   display: flex;
+   align-items: flex-start;
+   margin-bottom: 20px;
+}
+.publication-image {
+   width: 100px;
+   height: 100px;
+   margin-right: 20px;
+   border-radius: 5px;
+   object-fit: cover;
+}
+.publication-content {
+   max-width: calc(100% - 75px);
+}
