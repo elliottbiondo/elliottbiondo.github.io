@@ -1022,8 +1022,8 @@ footer .social-links li:first-child { margin-left: 0; }
    margin-bottom: 20px;
 }
 .publication-image {
-   width: 100px;
-   height: 100px;
+   width: 70px;
+   height: 70px;
    margin-right: 20px;
    border-radius: 5px;
    object-fit: cover;
