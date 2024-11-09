@@ -218,9 +218,9 @@ ul#nav li.current a { color: #F06000; }
 }
 #about .main-col { padding-right: 5%; }
 #about .download .button {
-   font: 22px/30px 'opensans-bold', sans-serif;
    margin-top: 6px;
-   background: #444;
+   background: #CC5300;
+   color: #fff;
 }
 #about .download .button:hover {
    background: #fff;
